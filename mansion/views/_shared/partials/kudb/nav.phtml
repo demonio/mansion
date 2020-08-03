@@ -1,0 +1,25 @@
+<?php
+$version = View::getVar('version');
+$new_version = View::getVar('new_version');
+?>
+<nav>
+    <div>
+        <div>
+            <div class="max-width">
+                <a href="/admin/"><i class="material-icons">home</i></a>
+
+                <a class="grey darken-2" href="/admin/kudb/">KuDB v<?=$version?></a>
+
+                <?php if ($new_version) : ?>
+                    <a href="/admin/kudb/update">
+                        <small><em>Actualice a <?=$new_version?></em></small>
+                    </a>
+                <?php endif; ?>
+
+                <a data-toggle="aside, #sidenav-overlay"><i class="material-icons">list</i></a>
+                
+                <a href=".."><i class="material-icons">arrow_upward</i></a>
+            </div>
+        </div>
+    </div>
+</nav>

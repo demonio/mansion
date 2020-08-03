@@ -1,0 +1,47 @@
+
+nav
+{
+    box-shadow:none;
+    font-size:25px;
+    height:60px;
+    line-height:56px;
+    position:relative;
+    z-index:997;
+}
+
+nav > div
+{
+    background:#eee;
+    position:fixed;
+    height:60px; width:100%;
+}
+
+nav > div > div
+{
+    background:black;
+    box-shadow:
+        0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 1px 5px 0 rgba(0, 0, 0, 0.12),
+        0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    height:56px; width:100%;
+}
+
+nav a
+{
+    color:white;
+    float:left;
+    padding-left:16px;
+    padding-right:16px;
+}
+
+nav a.active
+{
+    background:#eee;
+    color:black;
+    padding-bottom:4px;
+}
+
+nav a.active:hover
+{
+    color:red;
+}

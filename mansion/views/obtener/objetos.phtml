@@ -1,0 +1,32 @@
+<?php
+Css::add('objetos_iniciales');
+?>
+
+<h1 class="s12 m12 l12">Objetos iniciales a repartir</h1>
+
+<main>
+	<div class="row">
+		<?php foreach ($objetos as $o) : ?>
+			<div class="col s6 m4 l2">
+				<img src="/img/objetos/180x180/<?=$o->imagen?>.png" width="100px">
+				<span><?=$o->nombre?></span>
+			</div>
+		<?php endforeach; ?>
+	</div>
+	<div class="clearfix"></div>
+</main>
+
+<div class="footer"></div>
+
+<footer class="center-align">
+	<div class="col s4 m3 l4 oval_left ph0">
+		<a href="/elegir/personajes/<?=$escenario->id?>/1" class="lime-text text-darken-4">Volver a<br>selección de<br>investigadores</a>
+	</div>
+	<div class="col s4 m6 l4 ph0 row valign-wrapper">
+		<span class="col s9 ph0">Cada investigador empieza con <?=($escenario->pistas>1)?"$escenario->pistas pistas":'1 pista'?>.</span>
+		<span class="col s3 ph0"><img src="/img/objetos/clue.png" width="75px"></span>
+	</div>
+	<div class="col s4 m3 l4 oval_right ph0">
+		<a class="lime-text text-darken-4" href="/ver/introduccion/<?=$escenario->id?>">Continuar<br>preparación</a>
+	</div>
+</footer>

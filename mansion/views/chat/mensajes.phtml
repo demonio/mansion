@@ -1,0 +1,15 @@
+
+<?php foreach ($mensajes as $o) : ?>
+	<div>
+		<sub class="grey-text"><?=date( 'H:i:s d-m-y', strtotime($o->fecha) )?> <?=$o->usuario?> escribió:</sub><br>
+		<?=nl2br($o->mensaje)?>
+		<hr>
+	</div>
+<?php endforeach; ?>
+
+<?php if (Session::get('email') == 'raul.montejano@multisitio.es') : ?>
+	<audio autoplay>
+		<source type="audio/mpeg" src="/audio/navy_sonar.mp3">
+		Your browser does not support the audio element.
+	</audio>
+<?php endif; ?>

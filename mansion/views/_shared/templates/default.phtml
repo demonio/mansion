@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" id="important">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<title>Mansion</title>
+		<link href="/css/jquery-ui.min.css" rel="stylesheet">
+		<link href="/css/materialize.min.css" rel="stylesheet">
+		<link href="/css/material-icons.css" rel="stylesheet">
+		<link href="/css/hacks.css" rel="stylesheet">
+		<link href="/css/helpers.css" rel="stylesheet">
+		<?php /*<link href="/css/aside.css" rel="stylesheet">*/ ?>
+		<link href="/css/style.css" rel="stylesheet">
+		<link href="/css/old_newspaper.css" rel="stylesheet">
+		<link href="/css/mad_garamond_pro.css" rel="stylesheet">
+		<?=Css::inc()?>
+	</head>
+	<body class="row">
+		<?php if ( Session::get('email') ) : ?>
+			<a class="btn-floating btn-large btn-rt black darken-1 logout" href="/usuarios/salir" title="Usuario nº <?=Session::get('usuarios_id')?><?=PHP_EOL?>IP: <?=$_SERVER['REMOTE_ADDR']?>">
+				<i class="material-icons">exit_to_app</i>
+			</a>
+		<?php else : ?>
+			<a class="btn-floating btn-large btn-rt transparent login" data-open="#login">
+				<i class="material-icons">person</i>
+			</a>
+		<?php endif; ?>
+
+		<?php View::content(); ?>
+
+		<aside class="chat" style="display:none; position:fixed; right:0; bottom:0; z-index:666; width:300px;"></aside>
+		<a class="btn-floating btn-large red darken-1" data-ajax="aside.chat" data-toggle="aside.chat, #sidenav-overlay" href="/chat/contenedor" style="position:fixed; bottom:-10px; right:-10px; z-index:2"><i class="material-icons">people</i></a>
+
+		<div id="ajax-container"></div>
+        <div class="grey darken-4 modal ra15" id="login"><?php View::partial('login');?></div>
+        <div id="sidenav-overlay"></div>
+
+		<script src="/javascript/jquery/jquery-3.1.1.min.js"></script>
+		<script src="/javascript/jquery/jquery-ui.min.js"></script>
+		<script src="/javascript/jquery/jquery.rotate.min.js"></script>
+		<script src="/javascript/materialize.min.js"></script>
+		<script src="/javascript/ajax.js"></script>
+		<?php /*<script src="/javascript/aside.js"></script>*/ ?>
+		<script src="/javascript/filter.js"></script>
+		<script src="/javascript/function.js"></script>
+		<script src="/javascript/script.js"></script>
+
+        <?php include APP_PATH . 'views/_shared/partials/script.phtml'; ?>
+        <?php View::partial('toast'); ?>
+	</body>
+</html>

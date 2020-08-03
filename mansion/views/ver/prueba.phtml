@@ -1,0 +1,29 @@
+
+<ul class="collection"> 
+	<li class="collection-item">
+        <p>
+        	<?=$elemento_configuracion->$resultado?>
+        </p>  
+    </li>  
+	<li class="collection-item">
+        <?php  
+        if ($resultado == 'exito_investigar' and $elemento_configuracion->descubre) :
+            $a = explode( ',', str_replace(' ', '', $elemento_configuracion->descubre) );
+            $descubre = "[data-n='" . implode("'],[data-n='", $a) . "']";
+        else :
+            $descubre = '';
+        endif;
+
+        if ($resultado == 'exito_investigar' and $elemento_configuracion->oculta) :
+            $b = explode( ',', str_replace(' ', '', $elemento_configuracion->oculta) );
+            $oculta = "[data-n='" . implode("'],[data-n='", $b) . "']";
+        else :
+            $oculta = '';
+        endif;
+        ?>
+        <button class="btn blue darken-1 right" data-close=".modal.open" data-hide="<?=$oculta?>" data-show="<?=$descubre?>">
+            <?=_('Cerrar')?>        
+        </button>
+        <div class="clearfix"></div>
+    </li>  
+</ul>

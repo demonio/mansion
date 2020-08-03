@@ -1,0 +1,123 @@
+
+body { background:#000; }
+
+/* CABECERA */
+h1
+{ 
+	background:url('/img/escenarios/investigator_select_title.png') center no-repeat;
+	font-family:'OldNewspaperTypes';
+	height:110px; width:100%;
+	padding:30px 0;
+	text-align:center;
+}
+
+main { position:relative; }
+
+/* FLECHAS */
+main, .arrow, .mirror, .foreword { height:485px; }
+
+/* ESPEJO O IMAGEN INTRODUCTORIA */
+.mirror a
+{
+	position: absolute; top: -16px;
+    width: calc(100% - 49px);
+}
+.mirror a img
+{
+	width:69px;
+}
+.mirror div > img
+{
+	height:485px;
+	width:100%;
+}
+
+/* PROLOGO */
+.foreword
+{
+	position:relative;
+}
+.foreword > img
+{
+	height:472px; width:100%;
+	position:absolute;
+}
+.foreword a
+{
+}
+.foreword h2
+{
+	font:18px/22px 'OldNewspaperTypes';
+	position:absolute; top:38px;
+	padding:0 7%;
+    text-align:center;
+    width:100%;
+}
+.foreword p
+{
+	font:14px 'OldNewspaperTypes';
+	height:318px;
+	overflow-y:auto;
+	position:absolute; top:113px;
+	padding:0 7%;
+    text-align:center;
+    width:100%;
+}
+.foreword span
+{    
+	font:15px 'OldNewspaperTypes';
+    position:absolute; top:434px;
+    text-align:center;
+    width:100%;
+}
+
+footer 
+{ 
+	background:url('/img/escenarios/party_tray.png') center no-repeat;
+	height:160px; 
+	position:fixed; bottom:0; 
+}
+footer .oval_left
+{
+	background:url('/img/escenarios/oval_left.png') right top no-repeat;
+	font:13px 'OldNewspaperTypes';
+	height:160px;
+	position:relative; 
+}
+footer .oval_left a { position:absolute; right:55px; top:40px; }
+
+footer .oval_right
+{
+	background:url('/img/escenarios/oval_right.png') left top no-repeat;
+	font:13px 'OldNewspaperTypes';
+	height:160px;
+	position:relative; 
+}
+footer .oval_right a { position:absolute; left:40px; top:47px; }
+
+footer .notes
+{ 
+	color:#e0e0e0;
+	font:15px 'OldNewspaperTypes';
+	padding-top:50px !important;
+	position:relative;
+	text-align:center;
+}
+footer .notes p { line-height:20px; margin-bottom:0; }
+
+@media (max-width:600px)
+{
+	.foreword p { font-size:13px; }
+	footer .notes { font-size:13px; }
+}
+
+@media (min-width:601px) and (max-width:992px)
+{
+	.foreword h2 { font-size:19px; }
+}
+
+@media (min-width:993px)
+{
+	.foreword h2 { font-size:20px; }
+	.foreword p { font-size:16px; }
+}

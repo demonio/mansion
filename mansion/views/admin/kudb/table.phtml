@@ -1,0 +1,39 @@
+
+<form action class="col s12" method="post">
+    <ul class="collection">
+        <li class="collection-item ph0">
+            <h1 class="col s12">
+                Tabla <?=($table)?"\"$table\"":'nueva'?>
+                <input type="hidden" name="table_old" value="<?=$table?>">
+            </h1>
+            <div class="clearfix"></div>
+        </li>
+        <li class="collection-item ph0">
+            <div class="col s12">
+                <label>Tabla</label>
+                <input type="text" name="table" value="<?=$table?>">
+            </div>
+            <div class="clearfix"></div>
+        </li>
+        <li class="collection-item ph0 pt0">
+            <div class="col s12 m3 l3 mt10">
+                <button type="submit" class="all-width btn green darken-1" name="action" value="create_table">Crear tabla</button>
+            </div>
+            <?php if ( ! empty($table) ) : ?>
+                <div class="col s12 m3 l3 mt10">
+                    <a class="all-width btn blue darken-1" href="/admin/kudb/rows/<?=$table?>">Ver registros</a>
+                </div>
+                <div class="col s12 m3 l3 mt10">
+                    <button type="submit" class="all-width btn orange darken-1" name="action" value="update_table">Cambiar nombre</button>
+                </div>
+                <div class="col s12 m3 l3 delete_table mt10">
+                    <button type="button" class="all-width btn red darken-1" data-toggle=".delete_table button">Eliminar tabla</button>
+                    <button type="submit" class="all-width btn red darken-1" name="action" style="display:none" value="delete_table"><?=_('¿Seguro?')?></button>
+                </div>
+            <?php endif; ?>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+</form>
+<?php
+if ($table) include APP_PATH . 'views/admin/kudb/cols.phtml';

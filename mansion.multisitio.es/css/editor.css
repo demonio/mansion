@@ -1,0 +1,35 @@
+
+aside.losetas { background:transparent; width:290px; }
+aside.losetas li { background:#e0e0e0 !important; }
+
+.grid { margin:15px; position:relative; top:71px; }
+
+.grid > div 
+{ 
+	border:1px solid #212121; 
+	color:grey; 
+	height:90px; width:90px; 
+	position:absolute;
+	text-align:center
+}
+
+main form { position:relative; z-index:3 !important; }
+
+nav { background:black; /*height:30px;*/ position:fixed; top:0; z-index:3; }
+nav * { height:inherit; }
+nav h1 { padding:0 50px; }
+
+[type="checkbox"]+label { padding-left:25px; }
+
+@media (max-width: 600px)
+{
+	form { margin-top:20px; }
+}
+
+@media (min-width: 601px) and (max-width: 992px)
+{
+}
+
+@media (min-width: 993px)
+{
+}

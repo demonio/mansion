@@ -1,0 +1,20 @@
+
+<form action="/chat/mensajes" data-ajax=".chat .mensajes" method="post">
+	<ul class="collection mv0">
+		<li class="grey darken-4 white-text collection-item pa10">
+			¿Duda, probema o sugerencia?
+	    </li>
+		<li class="grey darken-4 white-text collection-item mensajes pa10" style=" height:200px; overflow:auto;">
+			<?php include APP_PATH . 'views/chat/mensajes.phtml'; ?>
+		</li>
+		<li class="grey darken-4 white-text center-align pa10 row">
+            <label class="left-align">Escribe aquí abajo:</label>
+            <div class="col s8 pl0">
+    			<textarea class="mb0 materialize-textarea" name="mensaje"></textarea>
+            </div>
+            <button type="submit" class="btn black white-text bw1 col s4 mb5" data-to=".chat textarea" data-val="">Enviar</button>
+		</li>
+	</ul>
+</form>
+
+<?php View::partial('socket', false, ['socket_url'=>'/chat/socket']); ?>

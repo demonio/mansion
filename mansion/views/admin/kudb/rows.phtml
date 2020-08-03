@@ -1,0 +1,129 @@
+
+<section class="col s12">
+    <ul class="collection">
+        <li class="collection-item ph0">
+            <h1 class="col s12">
+                Tabla <?=($table)?"\"$table\"":'nueva'?>
+                <a href="/admin/kudb/table/<?=$table?>">
+                    <sup><i class="small material-icons">edit</i></sup>
+                </a>
+            </h1>
+            <h2 class="col s12">
+                <?=$n_rows?> registros
+                <a href="/admin/kudb/row/<?=$table?>">
+                    <i class="small material-icons">add</i>
+                </a>
+                <a class="black btn-floating right" data-toggle=".filter"><i class="material-icons">filter_list</i></a>
+            </h2>
+            <div class="clearfix"></div>
+        </li>
+        <li class="collection-item filter">
+            <form action="/admin/kudb/rows/<?=$table?>" method="post"> 
+                <div class="col s12 m4 l4">
+                    <label>Buscar en</label>
+                    <select name="search_in">
+                        <option></option>
+                        <?php foreach ($cols as $v) : ?>
+                            <option<?=($v==$search_in)?' selected':''?> value="<?=$v?>"><?=$v?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Buscar como</label>
+                    <select name="search_as">
+                        <option></option>
+                        <?php foreach (['%%'=>'contiene', '^%'=>'acaba por', '%$'=>'empieza por', '='=>'igual a', '>'=>'mayor que', '<'=>'menor que'] as $k=>$v) : ?>
+                            <option<?=($k==$search_as)?' selected':''?> value="<?=$k?>"><?=$v?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Buscar esto</label>
+                    <input type="text" name="search_is" value="<?=$search_is?>">
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Ordenado por</label>
+                    <select name="by">
+                        <?php foreach ($cols as $v) : ?>
+                            <option<?=($v==$by)?' selected':''?> value="<?=$v?>"><?=$v?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Sentido</label>
+                    <select name="order">
+                        <?php foreach (['DESC'=>'Descendente','ASC'=>'Ascendente'] as $k=>$v) : ?>
+                            <option<?=($k==$order)?' selected':''?> value="<?=$k?>"><?=$v?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Por página</label>
+                    <select name="rows_per_page">
+                        <?php foreach ([10,20,40,80] as $v) : ?>
+                            <option<?=($v==$rows_per_page)?' selected':''?> value="<?=$v?>"><?=$v?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col s12">
+                    <button type="submit" class="btn green darken-1">Aplicar filtro</button>
+                </div>
+            </form>
+            <div class="clearfix"></div>
+        </li>
+        <li class="collection-item ph0" style="overflow-x:auto">
+            <table class="striped white">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <?php foreach ($cols as $col) : ?>
+                            <th><div><?=$col?></div></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="filter">
+                        <td colspan="<?=count($cols)+1?>">
+                            <?php View::partial('filter', false, ['filter'=>'.filterable-row']); ?>
+                        </td>
+                    </tr>
+                    <?php foreach ($rows as $row) : ?>   
+                        <tr class="filterable-row">
+                            <td class="va-top">
+                                <a href="/admin/kudb/row/<?="$table/{$row->$pk}"?>">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </td>
+                            <?php foreach ($cols as $col) : ?>
+                                <td>
+                                    <div class="height-limited">
+                                        <?=str_replace('<', '&lt;', $row->$col)?>
+                                    </div>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="<?=count($cols)+1?>">
+                            <a class="btn <?=($page<2)?'disabled':'grey darken-1'?>" href="/admin/kudb/rows/<?="$table/1"?>"><i class="material-icons">skip_previous</i></a>
+                            <a class="btn <?=($page<2)?'disabled':'grey darken-1'?>" href="/admin/kudb/rows/<?="$table/"?><?=(($page-1)<1)?1:$page-1?>"><i class="material-icons">chevron_left</i></a>
+                            <?php
+                            $prev_pages = $page-4;
+                            $pages_from = ($prev_pages<1) ? 1 : $prev_pages;
+                            $next_pages = $page+4;
+                            $pages_up = ($next_pages>$pages) ? $pages : $next_pages;
+                            for ($p=$pages_from; $p<=$pages_up; ++$p) :
+                                $active = ($p == $page) ? 'white red-text' : 'grey darken-1'; ?>
+                                <a class="btn <?=$active?>" href="/admin/kudb/rows/<?="$table/$p"?>"><?=$p?></a>
+                            <?php endfor; ?>
+                            <a class="btn <?=($page>($pages-1))?'disabled':'grey darken-1'?>" href="/admin/kudb/rows/<?="$table/"?><?=(($page+1)>$pages)?$pages:$page+1?>"><i class="material-icons">chevron_right</i></a>
+                            <a class="btn <?=($page>($pages-1))?'disabled':'grey darken-1'?>" href="/admin/kudb/rows/<?="$table/$pages"?>"><i class="material-icons">skip_next</i></a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </li>
+    </ul>
+</section>

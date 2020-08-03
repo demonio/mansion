@@ -1,0 +1,13 @@
+<?php
+$balas = (new Socket)->disparar();
+header("Content-Type: text/event-stream\n\n");
+header('Cache-Control: no-cache');
+if ( ! empty($balas) ) :
+	$s = 'data: [';
+	foreach ($balas as $o) :
+		$s .= '{"from":"'.$o->contenido.'","to":"'.$o->contenedor.'"},';
+		(new Socket)->disparado($o->id);
+	endforeach;
+	echo rtrim($s, ',') . "]\n\n";
+endif;
+flush();

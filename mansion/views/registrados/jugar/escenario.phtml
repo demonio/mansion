@@ -1,0 +1,120 @@
+
+<aside class="close grey darken-4 center-align left menu">
+	<a class="btn black bw1" href="/usuarios/salir">Guardar y salir</a>
+	<a class="btn black bw1">Prender fuego</a>
+	<a class="btn black bw1">Eliminar jugador</a>
+	<a class="btn black bw1" data-ajax=".end.modal" data-open=".end.modal" href="/registrados/jugar/fin/<?=$escenario->id?>">Finalizar partida</a>
+
+	<ul class="collection left-align">
+        <li class="grey darken-4 white-text collection-item">
+            <h3 class="center-align">Mensajes</h3>
+        </li>
+        <li class="grey darken-4 white-text collection-item">
+            <?php View::partial('filter', false, ['filter'=>'.filtered']); ?>
+        </li>
+        <?php foreach ($mensajes as $men) : 
+        	if ( ! $men->mensaje ) continue; ?>
+	        <li class="grey darken-4 white-text collection-item filtered">
+	            <?=$men->mensaje?>
+	        </li>	
+        <?php endforeach; ?>
+    </ul>
+</aside>
+
+<aside class="close creatures objects left ma10 transparent">
+	<ul class="collapsible" data-collapsible="accordion">
+    </ul>
+</aside>
+<div class="attacks close end escape object modal">
+</div>
+
+<div class="grid">
+	<?php foreach ($elementos_configuracion as $o) :
+		$elemento = $elementos[$o->elementos_id];
+
+		$tipo = $elemento->tipo;
+		$z = ($tipo <> 'suelos') ? 2 : 1;
+		$imagen = $elemento->imagen;
+		$alto = $elemento->alto;
+		$ancho = $elemento->ancho;
+		$alto_mod = $ancho_mod = 0;
+		if ($tipo == 'criaturas' or $tipo == 'objetos')
+		{
+			$alto_mod = -75;
+			$ancho_mod = -75;
+		}
+
+		if ($o->posicion == 1) :
+			$pos_left = 90;
+			$pos_top = -45;
+		elseif ($o->posicion == 2) :
+			$pos_left = 225;
+			$pos_top = -45;
+		elseif ($o->posicion == 3) :
+			$pos_left = 225;
+			$pos_top = 90;
+		elseif ($o->posicion == 4) :
+			$pos_left = 225;
+			$pos_top = 225;
+		elseif ($o->posicion == 5) :
+			$pos_left = 90;
+			$pos_top = 225;
+		elseif ($o->posicion == 6) :
+			$pos_left = -45;
+			$pos_top = 225;
+		elseif ($o->posicion == 7) :
+			$pos_left = -45;
+			$pos_top = 90;
+		elseif ($o->posicion == 8) :
+			$pos_left = -45;
+			$pos_top = -45;
+		elseif ($o->posicion == 9) :
+			$pos_left = 45;
+			$pos_top = 45;
+		elseif ($o->posicion == 10) :
+			$pos_left = 135;
+			$pos_top = 45;
+		elseif ($o->posicion == 11) :
+			$pos_left = 135;
+			$pos_top = 135;
+		elseif ($o->posicion == 12) :
+			$pos_left = 45;
+			$pos_top = 135;
+		else :
+			$pos_left = 0;
+			$pos_top = 0;
+		endif;
+		#_::d($o->id);
+		?>
+		<a
+			class="<?=$tipo?>"
+			data-ajax="#ajax-container"
+		 	data-columna="<?=$o->columna?>" 
+		 	data-fila="<?=$o->fila?>" 
+			data-n="<?=$o->id?>"
+			href="<?=empty($o->texto)?'#no-hay-texto':"/ver/efecto/$escenario->id/$o->id";?>"
+			style="
+				display:<?=empty($elementos_partida[$o->id]->visible)?'none':'block'?>;
+				position:absolute;
+				left:<?=(($o->columna-1)*270)+$pos_left?>px;
+				top:<?=(($o->fila-1)*270)+$pos_top?>px;
+				z-index:<?=$z?>;
+			"
+		>
+			<img data-posicion="<?=$o->posicion?>" data-rotation="<?=$o->rotacion?>" src="/img/<?="$tipo/{$ancho}x{$alto}/$imagen"?>.png" height="<?=$alto+$alto_mod?>px" width="<?=$ancho+$ancho_mod?>px">
+		</a>
+	<?php endforeach; ?>
+</div>
+
+<div class="options">
+	<a data-toggle="aside.menu, #sidenav-overlay" href="#menu"><img class="mix" src="/img/option_mix.png"></a>
+	<a data-ajax="aside.creatures > ul" data-hide="a.criaturas" data-toggle="aside.creatures, #sidenav-overlay" href="/registrados/pnjs/crear/<?=$escenario->id?>"><img class="creatures" src="/img/option_creatures.png"></a>
+	<a data-ajax="aside.objects > ul" data-hide="a.objetos" data-toggle="aside.objects, #sidenav-overlay" href="/registrados/objetos/crear/<?=$escenario->id?>"><img class="bag" src="/img/option_bag.png"></a>
+</div>
+
+<div class="eop-box">
+	<a href="/registrados/jugar/turno/<?=$escenario->id?>"><img class="phase" src="/img/option_phase.png"></a>
+</div>
+
+<?php
+Css::add('jugar_escenario');

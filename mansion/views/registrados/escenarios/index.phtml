@@ -1,0 +1,175 @@
+
+<aside class="close escenarios left white">
+	<ul class="collection">
+  		<li class="collection-item">
+			<h3>Tus escenarios</h1>
+  		</li>
+  		<li class="box-link collection-item">
+			Escenario nuevo
+			<a href="/registrados/escenarios"></a>
+		</li>
+  		<?php foreach ($escenarios as $esc) : ?>
+	  		<li class="<?=($esc->id==$escenario->id)?'active ':''?>box-link collection-item">
+	  			<?=$esc->nombre?>
+				<a href="/registrados/escenarios/index/<?=$esc->id?>"></a>
+	  		</li>
+  		<?php endforeach; ?>
+  	</ul>
+</aside>
+<a class="btn-floating btn-large btn-lt black" data-toggle="aside.escenarios, #sidenav-overlay">
+	<i class="material-icons">menu</i>
+</a>
+
+<form class="col s12 m8 offset-m2 l6 offset-l3" enctype="multipart/form-data" method="post">
+	<ul class="collection">
+  		<li class="collection-item">
+			<h1>
+				Escenario nuevo
+				<span class="right">
+		            <input type="checkbox"<?=($escenario->publicado)?' checked':''?> id="publicado" name="publicado" value="1">
+		            <label for="publicado">Publicado</label>
+		        </span>
+			</h1>
+		</li>
+	</ul>
+    <?php /*<ul class="tabs">
+    	<li class="tab"><a href="#datos">Datos</a></li>
+    	<li class="tab"><a href="#objetos">Objetos iniciales</a></li>
+    </ul>*/ ?>
+	<div id="datos">
+		<ul class="collection">
+			<li class="collection-item">
+				<div class="col s12 ph0">
+		            <label>Nombre <span class="red-text">(Obligatorio y mínimo 9 caracteres)</span></label>
+		            <input type="text" name="nombre" value="<?=$escenario->nombre?>">
+		        </div>
+		        <div class="col s12 ph0">
+		            <?php if ($escenario->imagen) : ?>
+			            <input<?=($escenario->imagen)?' checked':''?> type="checkbox" id="imagen" name="imagen" value="<?=$escenario->imagen?>">
+			        <?php endif; ?>
+				    <label for="imagen"><?=_('Imagen')?> (.jpg o .png)</label>
+		            <div class="file-field">
+		                <input type="file" name="imagenes[]">
+		                <div class="file-path-wrapper">
+		                    <input type="text" class="file-path" placeholder="<?=$escenario->imagen?>">
+		                </div>
+		            </div>
+		        </div>
+				<div class="col s12 ph0">
+		            <label>Prólogo <span class="red-text">(Obligatorio y mínimo 99 caracteres)</span></label>
+		            <textarea class="flow-text materialize-textarea" name="prologo"><?=$escenario->prologo?></textarea>
+		        </div>
+				<div class="col s12 ph0">
+		            <label>Introducción escrita</label>
+		            <textarea class="flow-text materialize-textarea" name="introduccion"><?=$escenario->introduccion?></textarea>
+		        </div>
+		        <div class="col s12 ph0">
+		            <?php if ($escenario->intro_voz) : ?>
+			            <input<?=($escenario->intro_voz)?' checked':''?> type="checkbox" id="intro_voz" name="intro_voz" value="<?=$escenario->intro_voz?>">
+			        <?php endif; ?>
+		            <label for="intro_voz"><?=_('Introucción archivo de voz')?></label>
+		            <div class="file-field">
+		                <input type="file" name="intro_voz[]">
+		                <div class="file-path-wrapper">
+		                    <input type="text" class="file-path" placeholder="<?=$escenario->intro_voz?>">
+		                </div>
+		            </div>
+		        </div>
+				<div class="col s12 m7 l7 pl0">
+					<h3>Ampliaciones</h3>
+					<input<?=( strstr($escenario->ampliaciones, '20') )?' checked':''?> type="checkbox" id="tentaculo" name="ampliaciones[]" value="20">
+					<label for="tentaculo">Mansiones de la locura 2ª edición (tentáculo)</label><br>
+					<input<?=( strstr($escenario->ampliaciones, '23') )?' checked':''?> type="checkbox" id="garra" name="ampliaciones[]" value="23">
+					<label for="garra">Más allá del umbral (garra)</label><br>
+					<input<?=( strstr($escenario->ampliaciones, '24') )?' checked':''?> type="checkbox" id="llavero" name="ampliaciones[]" value="24">
+					<label for="llavero">Calles de Arkham (llavero)</label><br>
+					<h4>Pesadillas recurrentes:</h4>
+					<input<?=( strstr($escenario->ampliaciones, '01') )?' checked':''?> type="checkbox" id="llave" name="ampliaciones[]" value="01">
+					<label for="llave">Mansiones de la locura 1ª edición (llave)</label><br>
+					<h4>Recuerdos reprimidos:</h4>
+					<input<?=( strstr($escenario->ampliaciones, '06') )?' checked':''?> type="checkbox" id="pocion" name="ampliaciones[]" value="06">
+					<label for="pocion">Alquimia prohibida (poción)</label><br>
+					<input<?=( strstr($escenario->ampliaciones, '09') )?' checked':''?> type="checkbox" id="luna" name="ampliaciones[]" value="09">
+					<label for="luna">La llamada de lo salvaje (luna)</label><br>
+					<hr>
+				</div>
+				<div class="col s12 m5 l5 pl0">
+	      			<label class="block">Dificultad</label>
+	      			<div class="mb10 stars">
+	          			<?php for ($i=5; $i>=1; --$i) : ?>
+			            	<input<?=($i==$escenario->dificultad)?' checked':''?> type="radio" id="dificultad-<?=$i?>" name="dificultad" value="<?=$i?>">
+			            	<label class="inline" for="dificultad-<?=$i?>">
+			            		<i class="material-icons star n<?=$i?>">star_border</i>
+			            	</label>
+			            <?php endfor; ?>
+			            <div class="clearfix"></div>
+			        </div>
+		            <label>Minutos desde</label>
+		            <input type="text" name="duracion_desde" value="<?=$escenario->duracion_desde?>">
+		            <label>Hasta</label>
+		            <input type="text" name="duracion_hasta" value="<?=$escenario->duracion_hasta?>">
+		            <label>Pistas iniciales:</label>
+		            <input type="number" name="pistas" value="<?=$escenario->pistas?>">
+		            <label>Elementos de inicio: <sup>1</sup></label>
+		            <input type="text" name="inicio" value="<?=$escenario->inicio?>">
+		        </div>
+				<small class="col s12">
+					1. Este campo se rellena (con IDs) después de montar las primeras losetas.
+				</small>
+		        <div class="clearfix"></div>
+			</li>
+			<li class="collection-item ph10">
+			    <?php if ( empty($escenario->id) ) : ?>
+				    <div class="col s12 m6 l3 mt10">
+				        <button type="submit" class="all-width btn black darken-1" name="action" value="crear">Crear</button>
+				    </div>
+				<?php else : ?>
+				    <div class="col s12 m6 l3 mt10">
+				        <button type="submit" class="all-width btn black darken-1" name="action" value="crear">Clonar</button>
+				    </div>
+			        <div class="col s12 m6 l3 mt10">
+			            <button type="submit" class="all-width btn black darken-1" name="action" value="salvar">Salvar</button>
+			        </div>
+			        <div class="col s12 m6 l3 mt10">
+			            <button type="submit" class="all-width btn black darken-1" name="action" value="borrar">Borrar</button>
+			        </div>
+			        <div class="col s12 m6 l3 mt10">
+			            <a class="all-width btn black darken-1" href="/registrados/elementos/index/<?=$escenario->id?>">Montar</a>
+			        </div>
+			        <input type="hidden" name="id" value="<?=$escenario->id?>">
+			    <?php endif; ?>
+		        <div class="clearfix"></div>
+			</li>
+		</ul>
+	</div>
+	<?php /*<div id="objetos">
+		<ul class="collection">
+			<li class="collection-item">
+				<h3 class="col s12">Pistas iniciales:</h3>
+				<div class="col s2">
+					<input type="number" name="clue.png" value="2"> 
+				</div>
+				<div class="col s3">
+					<img src="/img/objetos/clue.png" height="70px">
+				</div>
+				<div class="clearfix"></div>
+			</li>
+			<li class="collection-item">
+				<h3 class="col s12">Objetos fijos:</h3>
+				<?php foreach ($objetos as $o) : ?>
+					<div class="col s6 m4 l3 truncate">
+						<hr>
+						<input type="checkbox" id="<?=$o->imagen?>" name="<?=$o->imagen?>">
+						<label for="<?=$o->imagen?>"><?=$o->nombre?></label><br>
+						<img src="/img/objetos/180x180/<?=$o->imagen?>.png" height="100px">
+					</div>
+				<?php endforeach; ?>
+				<div class="clearfix"></div>
+			</li>
+		</ul>
+	</div>*/ ?>
+</form>
+
+<?php
+Css::add('editor');
+Css::add('stars');

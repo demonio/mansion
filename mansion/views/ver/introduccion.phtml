@@ -1,0 +1,26 @@
+<?php
+Css::add('introduccion');
+?>
+
+<main>
+	<div class="center-align col s0 m5 l4 mirror">
+		<div class="box-frame valign-wrapper">
+			<img src="/img/escenarios/oval_scene_image.png">
+			<img onerror="this.src='/img/broken_mirror.png'" src="/img/escenarios/<?="$escenario->id/$escenario->imagen"?>">
+		</div>
+	</div>
+	<div class="col s12 m7 l6 intro">
+		<img class="responsive-img" src="/img/escenarios/top_separation.png">
+		<div class="mh15"><?=nl2br($escenario->introduccion)?></div>
+		<div class="center-align">
+			<audio controls autoplay>
+				<source src="/audio/escenarios/<?="$escenario->id/$escenario->intro_voz"?>" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+			<br>
+			<br>
+			<a class="button" href="/registrados/jugar/escenario/<?=$escenario->id?>">Continuar</a>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</main>

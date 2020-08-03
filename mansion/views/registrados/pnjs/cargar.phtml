@@ -1,0 +1,29 @@
+
+<?php if ( ! $pnjs ) : ?>
+	<li class="creature">
+		<div class="collapsible-header black white-text">
+			NADA QUE MATAR
+		</div>
+	</li>
+<?php endif; ?>
+
+<?php foreach ($pnjs as $o) : ?>
+	<li class="creature n<?=$o->id?>">
+		<div class="collapsible-header black white-text">
+			<?=$o->nombre?> (<?=$o->pv?>)
+		</div>
+		<div class="center-align collapsible-body pa0">
+			<img class="pnj" src="/img/criaturas/180x180/<?=$o->imagen?>.png">
+			<img class="bg" src="/img/criaturas/bg.png">
+			<div class="pv"><?=$o->pv?></div>
+			<div class="name"><?=$o->nombre?></div>
+			<div class="dmg">0</div>
+			<a class="less" data-less=".creature.n<?=$o->id?> .dmg"></a>
+			<a class="more" data-max=".creature.n<?=$o->id?> .pv" data-more=".creature.n<?=$o->id?> .dmg" data-text="¿Lo matamos?" data-to="aside.creatures > ul" data-go="/registrados/pnjs/matar/<?=$o->escenarios_id?>/<?=$o->id?>"></a>
+
+			<a class="attack" data-ajax=".modal.attacks" data-open=".modal.attacks" href="/registrados/pnjs/atacar/<?=$o->id?>">Atacar</a>
+
+			<a class="escape" data-ajax=".modal.escape" data-open=".modal.escape" href="/registrados/pnjs/evitar/<?=$o->id?>">Evitar</a>
+		</div>
+	</li>
+<?php endforeach; ?>

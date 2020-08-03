@@ -1,0 +1,491 @@
+
+<nav class="grey-text text-lighten-2">
+	<h1 class="center-align">
+		<?=$escenario->nombre?>
+		<a class="inline" href="/registrados/escenarios/index/<?=$escenario->id?>"><i class="material-icons">edit</i></a>
+	</h1>
+</nav>
+
+<aside class="close left losetas grey lighten-2">
+  	<ul class="collapsible" data-collapsible="accordion">
+  		<?php $i=1; foreach ($elementos_por_grupo as $tipo=>$a) : ?>
+	  		<li class="pa0">
+  				<div class="collapsible-header"><?=ucfirst($tipo)?></div>
+  				<div class="collapsible-body pa0">				
+					<ul class="collection">
+				        <li class="collection-item">
+				            <?php View::partial('filter', false, ['filter'=>".filtered_$i"]); ?>
+				        </li>
+				  		<?php foreach ($a as $o) :
+				  			if ($tipo == 'suelos') :
+				  				if ( in_array($o->id, $elementos_situados) ) continue;
+				  				if ( in_array($o->elementos_id, $elementos_situados) ) continue;
+				  			endif; ?>
+					  		<li class="box-link collection-item filtered_<?=$i?>">			
+					  			<h4><?=$o->nombre?></h4>
+								<img src="/img/<?="$o->tipo/{$o->ancho_miniatura}x{$o->alto_miniatura}/$o->imagen"?>.crop.png">
+								<a href="/registrados/elementos/index/<?="$escenario->id/$o->id"?>"></a>
+					  		</li>
+				  		<?php endforeach; ?>
+				  	</ul>
+				</div>
+			</li>
+  		<?php ++$i; endforeach; ?>
+  	</ul>
+</aside>
+<a class="btn-floating btn-large black" data-focus="aside.losetas input" data-toggle="aside.losetas, #sidenav-overlay" style="position:fixed; left:-10px; top:-10px; z-index:8;">
+	<i class="material-icons">menu</i>
+</a>
+<aside class="<?=Input::get('mito')?'open ':'close '?>right mitos grey lighten-2">			
+	<ul class="collection">
+        <li class="collection-item">
+        	<h3>Mito</h3>
+        </li>
+        <li class="collection-item">
+			<form enctype="multipart/form-data" method="post">
+				<div class="col s6">
+		            <label><?=_('Turno')?></label>
+		            <input type="number" name="turno" value="<?=$mito->turno?>">
+		        </div>
+				<div class="col s12">
+		            <label><?=_('Texto')?></label>
+		            <textarea class="materialize-textarea" name="texto"><?=$mito->texto?></textarea>
+		        </div>
+		        <div class="col s12">
+		            <?php if ($mito->voz) : ?>
+			            <input<?=($mito->voz)?' checked':''?> type="checkbox" id="voz" name="voz" value="<?=$mito->voz?>">
+				    	<label for="voz"><?=$mito->voz?></label>
+			        <?php else : ?>
+		            	<label><?=_('Voz')?> (.mp3)</label>
+			        <?php endif; ?>
+		            <div class="file-field">
+		                <input type="file" name="voz[]">
+		                <div class="file-path-wrapper">
+		                    <input type="text" class="file-path" placeholder="">
+		                </div>
+		            </div>
+		        </div>
+			    <?php if ( ! $mito->id ) : ?>
+				    <div class="center-align col s12 mt5">
+				        <button type="submit" class="all-width btn black darken-1" name="action" value="crear_mito">Crear</button>
+				    </div>
+				<?php else : ?>
+				    <div class="col s12 mt5">
+				        <a class="all-width btn black darken-1" href="?mito=nuevo">Nuevo</a>
+				    </div>
+			        <div class="col s12 mt5">
+			            <button type="submit" class="all-width btn black darken-1" name="action" value="actualizar_mito">Salvar</button>
+			        </div>
+			        <div class="col s12 mt5">
+			            <button type="submit" class="all-width btn black darken-1" name="action" value="quitar_mito">Quitar</button>
+			        </div>
+    				<input type="hidden" name="id" value="<?=$mito->id?>">
+			    <?php endif; ?>
+    			<input type="hidden" name="escenarios_id" value="<?=$escenario->id?>">
+		    </form>
+			<div class="clearfix"></div>
+        </li>
+        <li class="collection-item">
+        	<h3>Mitos</h3>
+        </li>
+  		<?php foreach ($mitos as $o) : ?>
+        	<li class="collection-item">
+        		<h4>
+        			Turno: <?=$o->turno?>
+        			<a class="inline" href="?mito=<?=$o->turno?>"><i class="material-icons">edit</i></a>
+        		</h4>
+        		<label>Texto</label>
+        		<p><?=$o->texto?></p>
+        		<label>Voz</label>
+        		<p><?=$o->voz?></p>
+        	</li>
+  		<?php endforeach; ?>	
+    </ul>
+</aside>
+<a class="btn-floating btn-large black" data-focus="aside.mitos input" data-toggle="aside.mitos, #sidenav-overlay" style="position:fixed; bottom:-10px; right:-10px; z-index:8;">
+	<i class="material-icons">event</i>
+</a>
+
+<main class="grid">
+	<!-- REJILLA -->
+	<?php for ($y=0; $y<20; ++$y) : ?>
+		<?php for ($x=0; $x<20; ++$x) : ?>
+			<div style="left:<?=$x*90?>px; top:<?=$y*90?>px;">
+				<br>
+				<small>
+					C<?=$x+1?><br>
+					F<?=$y+1?>
+				</small>
+			</div>
+		<?php endfor; ?>
+	<?php endfor; ?>
+
+	<!-- PIEZAS -->
+	<?php foreach ($elementos_configuracion as $o) : 
+		$tipo = $elementos[$o->elementos_id]->tipo;
+		$z = ($tipo <> 'suelos') ? 2 : 1;
+		$imagen = $elementos[$o->elementos_id]->imagen;
+		$alto = $elementos[$o->elementos_id]->alto_miniatura;
+		$ancho = $elementos[$o->elementos_id]->ancho_miniatura;
+		# FICHA DE INICIO
+		if ($o->posicion == 1) :
+			$pos_left = 30;
+			$pos_top = -15;
+		elseif ($o->posicion == 2) :
+			$pos_left = 75;
+			$pos_top = -15;
+		elseif ($o->posicion == 3) :
+			$pos_left = 75;
+			$pos_top = 30;
+		elseif ($o->posicion == 4) :
+			$pos_left = 75;
+			$pos_top = 75;
+		elseif ($o->posicion == 5) :
+			$pos_left = 30;
+			$pos_top = 75;
+		elseif ($o->posicion == 6) :
+			$pos_left = -15;
+			$pos_top = 75;
+		elseif ($o->posicion == 7) :
+			$pos_left = -15;
+			$pos_top = 30;
+		elseif ($o->posicion == 8) :
+			$pos_left = -15;
+			$pos_top = -15;
+		elseif ($o->posicion == 9) :
+			$pos_left = 15;
+			$pos_top = 15;
+		elseif ($o->posicion == 10) :
+			$pos_left = 45;
+			$pos_top = 15;
+		elseif ($o->posicion == 11) :
+			$pos_left = 45;
+			$pos_top = 45;
+		elseif ($o->posicion == 12) :
+			$pos_left = 15;
+			$pos_top = 45;
+		else :
+			$pos_left = 0;
+			$pos_top = 0;
+		endif;
+		?>
+		<a
+		 	data-columna="<?=$o->columna?>" 
+		 	data-fila="<?=$o->fila?>" 
+			href="/registrados/elementos/index/<?="$escenario->id/$o->elementos_id/$o->id"?>"
+			style="position:absolute; left:<?=(($o->columna-1)*90)+$pos_left?>px; top:<?=(($o->fila-1)*90)+$pos_top?>px; z-index:<?=$z?>"
+		>
+			<img data-posicion="<?=$o->posicion?>" data-rotation="<?=$o->rotacion?>" src="/img/<?="$tipo/{$ancho}x{$alto}/$imagen"?>.crop.png" height="<?=$alto?>px" width="<?=$ancho?>px" title="<?=$o->id?>">
+		</a>
+	<?php endforeach; ?>
+<main>
+
+<form action="/registrados/elementos/index/<?=$escenario->id?>" class="col s12 m8 l8 draggable<?=($elemento->id or $elemento_configuracion->id)?'':' hide'?> mt15 right" enctype="multipart/form-data" id="mydiv" method="post">
+	<ul class="collection">
+  		<li class="collection-item">
+			<h2>
+				<?=$elemento->nombre?> <sup class="red-text">nº <?=$elemento_configuracion->id?></sup>
+				<a class="black-text right" href="/registrados/elementos/index/<?=$escenario->id?>"><i class="material-icons">clear</i></a>
+			</h2>
+		</li>
+    </ul>
+    <ul class="tabs">
+    	<li class="tab"><a href="#elemento">Elemento</a></li>
+    	<li class="tab<?=($elemento->tipo<>'criaturas')?' disabled':''?>"><a href="#mas">Más</a></li>
+    </ul>
+	<div id="elemento">
+		<ul class="collection">
+			<li class="collection-item">
+				<div class="col s6 m6 l3">
+					<img class="responsive-img" src="/img/<?="$elemento->tipo/{$elemento->ancho_miniatura}x{$elemento->alto_miniatura}/$elemento->imagen"?>.crop.png">
+				</div>
+				<?php /*<div class="col s6 m6 l9">
+		            <input type="checkbox"<?=($elemento_configuracion->visible)?' checked':''?> name="visible" id="visible">
+		            <label for="visible"><?=_('Visible')?> <sup>1</sup></label>
+		        </div>*/ ?>
+				<div class="col s6 m3 l3 clearfix">
+		            <label>Columna</label>
+		            <select name="columna">
+		            	<?php for ($i=1; $i<=20; ++$i) : ?>
+		            		<option<?php if ($elemento_configuracion->columna == $i) : ?> selected<?php endif; ?> value="<?=$i?>"><?=$i?></option>
+		            	<?php endfor; ?>
+		            </select>
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label>Fila</label>
+		            <select name="fila">
+		            	<?php for ($i=1; $i<=20; ++$i) : ?>
+		            		<option<?php if ($elemento_configuracion->fila == $i) : ?> selected<?php endif; ?> value="<?=$i?>"><?=$i?></option>
+		            	<?php endfor; ?>
+		            </select>
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label>Posición</label>
+		            <select name="posicion">
+		            	<option></option>
+		            	<?php $posiciones = [0=>'', 1=>'Superior', 2=>'Superior der.', 3=>'Derecho', 4=>'Inferior der.', 5=>'Inferior', 6=>'Inferior izq.', 7=>'Izquierdo', 8=>'Superior izq.', 9=>'Interior sup. izq.', 10=>'Interior sup. der.', 11=>'Interior inf. der.', 12=>'Interior inf. izq.'];
+		            	for ($i=1; $i<=12; ++$i) : ?>
+		            		<option<?php if ($elemento_configuracion->posicion == $i) : ?> selected<?php endif; ?> value="<?=$i?>"><?=$posiciones[$i]?></option>
+		            	<?php endfor; ?>
+		            </select>
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label>Rotación</label>
+		            <select<?=($elemento->tipo<>'fichas' and $elemento->tipo<>'suelos')?' disabled':''?> name="rotacion">
+		            	<?php foreach ([0,90,180,270] as $grados) : ?>
+		            		<option<?php if ($elemento_configuracion->rotacion == $grados) : ?> selected<?php endif; ?> value="<?=$grados?>"><?=$grados?></option>
+		            	<?php endforeach; ?>
+		            </select>
+		        </div>
+				<div class="col s6">
+		            <label><?=_('Texto inicial')?></label>
+		            <textarea class="materialize-textarea" name="texto"><?=$elemento_configuracion->texto?></textarea>
+		        </div>
+		        <div class="col s6">
+		            <?php if ($elemento_configuracion->voz) : ?>
+			            <input<?=($elemento_configuracion->voz)?' checked':''?> type="checkbox" id="voz" name="voz" value="<?=$elemento_configuracion->voz?>">
+			        <?php endif; ?>
+		            <label for="voz"><?=_('Voz inicial')?></label>
+		            <div class="file-field">
+		                <input type="file" name="voz[]">
+		                <div class="file-path-wrapper">
+		                    <input type="text" class="file-path" placeholder="<?=$elemento_configuracion->voz?>">
+		                </div>
+		            </div>
+		        </div>
+				<div class="col s6">
+		            <label><?=_('Texto al investigar')?></label>
+		            <textarea class="materialize-textarea" name="texto_investigar"><?=$elemento_configuracion->texto_investigar?></textarea>
+		        </div>
+		        <div class="col s6">
+		            <?php if ($elemento_configuracion->voz_investigar) : ?>
+			            <input<?=($elemento_configuracion->voz_investigar)?' checked':''?> type="checkbox" id="voz_investigar" name="voz_investigar" value="<?=$elemento_configuracion->voz_investigar?>">
+			        <?php endif; ?>
+		            <label for="voz_investigar"><?=_('Voz al investigar')?></label>
+		            <div class="file-field">
+		                <input type="file" name="voz[]">
+		                <div class="file-path-wrapper">
+		                    <input type="text" class="file-path" placeholder="<?=$elemento_configuracion->voz_investigar?>">
+		                </div>
+		            </div>
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label><?=_('Prueba de atributo')?></label>
+		            <select name="atr_investigar">
+		            	<option></option>
+		            	<?php foreach (['FUE', 'AGI', 'OBS', 'SAB', 'INF', 'VOL'] as $car) : ?>
+		            		<option<?=($car == $elemento_configuracion->atr_investigar)?' selected':''?> value="<?=$car?>"><?=$car?></option>
+		            	<?php endforeach; ?>
+		            </select>
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label><?=_('Éxitos necesarios')?></label>
+		            <input type="number" name="dif_investigar" value="<?=$elemento_configuracion->dif_investigar?>">
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label><?=_('Descubre')?> <sup>2</sup></label>
+		            <input type="text" name="descubre" value="<?=$elemento_configuracion->descubre?>">
+		        </div>
+				<div class="col s6 m3 l3">
+		            <label><?=_('Oculta')?> <sup>3</sup></label>
+		            <input type="text" name="oculta" value="<?=$elemento_configuracion->oculta?>">
+		        </div>
+				<div class="col s6">
+		            <label><?=_('Éxito')?></label>
+		            <textarea class="materialize-textarea" name="exito_investigar"><?=$elemento_configuracion->exito_investigar?></textarea>
+		        </div>
+				<div class="col s6">
+		            <label><?=_('Fallo')?></label>
+		            <textarea class="materialize-textarea" name="fallo_investigar"><?=$elemento_configuracion->fallo_investigar?></textarea>
+		        </div>
+				<small class="col s12">
+		            1. Recuerda poner en el formulario del escenario, los (IDs) elementos de inicio.<br>
+		            2. Pon los números (seperados por comas) de las losetas que este elemento muestra con la acción descubrir.<br>
+		            3. Pon los números (seperados por comas) de las losetas que este elemento oculta con la acción descubrir.
+		        </small>
+		        <div class="clearfix"></div>
+			</li>
+			<li class="collection-item">
+			    <?php if ( empty($elemento_configuracion->id) ) : ?>
+				    <div class="col s6 m3 l3 mt5">
+				        <button type="submit" class="all-width btn black darken-1" name="action" value="crear">Crear</button>
+				    </div>
+				<?php else : ?>
+			        <div class="col s6 m3 l3 mt5">
+			            <button type="submit" class="all-width btn black darken-1" name="action" value="actualizar">Salvar</button>
+			        </div>
+			        <div class="col s6 m3 l3 mt5">
+			            <button type="submit" class="all-width btn black darken-1" name="action" value="quitar">Quitar</button>
+			        </div>
+			    <?php endif; ?>
+		        <div class="clearfix"></div>
+			</li>
+		</ul>
+	</div>
+	<div id="mas">
+		<ul class="collection">
+	  		<li class="collection-item">
+				<div class="col s1">
+		            <label><?=_('PV')?></label>
+		            <input type="number" name="pv" value="<?=$elemento_configuracion_mas->pv?>">
+		        </div>
+				<div class="col s11">
+		            <label><?=_('Movimiento')?></label>
+		            <input type="text" name="movimiento" value="<?=$elemento_configuracion_mas->movimiento?>">
+		        </div>
+		        <div class="clearfix"></div>
+			</li>
+		</ul>
+	    <ul class="tabs">
+	    	<?php $ataques = ['arma_pesada'=>'Arma pesada', 'arma_de_filo'=>'Arma de filo', 'arma_de_fuego'=>'Arma de fuego', 'hechizo'=>'Hechizo', 'sin_arma'=>'Sin arma']; ?>
+	    	<li class="tab"><a href="#defender">Defender</a></li>
+	    	<li class="tab"><a href="#cordura">Cordura</a></li>
+	    	<li class="tab"><a href="#evitar">Evitar</a></li>
+			<?php foreach ($ataques as $k=>$v) : ?>
+	    		<li class="tab"><a href="#<?=$k?>"><?=$v?></a></li>
+			<?php endforeach; ?>
+	    </ul>
+		<div id="defender">
+			<ul class="collection">
+		  		<li class="collection-item">
+					<div class="col s8">
+			            <label><?=_('Texto al defender')?></label>
+			            <textarea class="materialize-textarea" name="accion_defender"><?=$elemento_configuracion_mas->accion_defender?></textarea>
+			        </div>
+					<div class="col s2">
+			            <label><?=_('Atributo')?></label>
+			            <select name="atr_defender">
+			            	<option></option>
+			            	<?php foreach (['FUE', 'AGI', 'OBS', 'SAB', 'INF', 'VOL'] as $car) : ?>
+			            		<option<?=($car == $elemento_configuracion_mas->atr_defender)?' selected':''?> value="<?=$car?>"><?=$car?></option>
+			            	<?php endforeach; ?>
+			            </select>
+			        </div>
+					<div class="col s2">
+			            <label><?=_('Dificultad')?></label>
+			            <input type="number" name="dif_defender" value="<?=$elemento_configuracion_mas->dif_defender?>">
+			        </div>
+					<div class="col s6">
+			            <label><?=_('Éxito')?></label>
+			            <textarea class="materialize-textarea" name="exito_defender"><?=$elemento_configuracion_mas->exito_defender?></textarea>
+			        </div>
+					<div class="col s6">
+			            <label><?=_('Fallo')?></label>
+			            <textarea class="materialize-textarea" name="fallo_defender"><?=$elemento_configuracion_mas->fallo_defender?></textarea>
+			        </div>
+			        <div class="clearfix"></div>
+				</li>
+			</ul>
+		</div>
+		<div id="cordura">
+			<ul class="collection">
+		  		<li class="collection-item">
+					<div class="col s8">
+			            <label><?=_('Texto de cordura')?></label>
+			            <textarea class="materialize-textarea" name="accion_cordura"><?=$elemento_configuracion_mas->accion_cordura?></textarea>
+			        </div>
+					<div class="col s2">
+			            <label><?=_('Atributo')?></label>
+			            <select name="atr_cordura">
+			            	<option></option>
+			            	<?php foreach (['FUE', 'AGI', 'OBS', 'SAB', 'INF', 'VOL'] as $car) : ?>
+			            		<option<?=($car == $elemento_configuracion_mas->atr_cordura)?' selected':''?> value="<?=$car?>"><?=$car?></option>
+			            	<?php endforeach; ?>
+			            </select>
+			        </div>
+					<div class="col s2">
+			            <label><?=_('Dificultad')?></label>
+			            <input type="number" name="dif_cordura" value="<?=$elemento_configuracion_mas->dif_cordura?>">
+			        </div>
+					<div class="col s6">
+			            <label><?=_('Éxito')?></label>
+			            <textarea class="materialize-textarea" name="exito_cordura"><?=$elemento_configuracion_mas->exito_cordura?></textarea>
+			        </div>
+					<div class="col s6">
+			            <label><?=_('Fallo')?></label>
+			            <textarea class="materialize-textarea" name="fallo_cordura"><?=$elemento_configuracion_mas->fallo_cordura?></textarea>
+			        </div>
+			        <div class="clearfix"></div>
+				</li>
+			</ul>
+		</div>
+		<div id="evitar">
+			<ul class="collection">
+		  		<li class="collection-item">
+					<div class="col s8">
+			            <label><?=_('Texto al evitar')?></label>
+			            <textarea class="materialize-textarea" name="accion_evitar"><?=$elemento_configuracion_mas->accion_evitar?></textarea>
+			        </div>
+					<div class="col s2">
+			            <label><?=_('Atributo')?></label>
+			            <select name="atr_evitar">
+			            	<option></option>
+			            	<?php foreach (['FUE', 'AGI', 'OBS', 'SAB', 'INF', 'VOL'] as $car) : ?>
+			            		<option<?=($car == $elemento_configuracion_mas->atr_evitar)?' selected':''?> value="<?=$car?>"><?=$car?></option>
+			            	<?php endforeach; ?>
+			            </select>
+			        </div>
+					<div class="col s2">
+			            <label><?=_('Dificultad')?></label>
+			            <input type="number" name="dif_evitar" value="<?=$elemento_configuracion_mas->dif_evitar?>">
+			        </div>
+					<div class="col s6">
+			            <label><?=_('Éxito')?></label>
+			            <textarea class="materialize-textarea" name="exito_evitar"><?=$elemento_configuracion_mas->exito_evitar?></textarea>
+			        </div>
+					<div class="col s6">
+			            <label><?=_('Fallo')?></label>
+			            <textarea class="materialize-textarea" name="fallo_evitar"><?=$elemento_configuracion_mas->fallo_evitar?></textarea>
+			        </div>
+			        <div class="clearfix"></div>
+				</li>
+			</ul>
+		</div>
+		<?php foreach ($ataques as $k=>$v) :
+			$ataque = "ataque_$k";
+			$atr = "atr_$k";
+			$dif = "dif_$k";
+			$exito = "exito_$k";
+			$fallo = "fallo_$k";
+			?>
+			<div id="<?=$k?>">
+				<ul class="collection">
+			  		<li class="collection-item">
+						<div class="col s8">
+				            <label><?=_('Texto al atacar')?> (<?=_($v)?>)</label>
+				            <textarea class="materialize-textarea" name="ataque_<?=$k?>"><?=$elemento_configuracion_mas->$ataque?></textarea>
+				        </div>
+						<div class="col s2">
+				            <label><?=_('Atributo')?></label>
+				            <select name="atr_<?=$k?>">
+				            	<option></option>
+				            	<?php foreach (['FUE', 'AGI', 'OBS', 'SAB', 'INF', 'VOL'] as $car) : ?>
+				            		<option<?=($car == $elemento_configuracion_mas->$atr)?' selected':''?> value="<?=$car?>"><?=$car?></option>
+				            	<?php endforeach; ?>
+				            </select>
+				        </div>
+						<div class="col s2">
+				            <label><?=_('Dificultad')?></label>
+				            <input type="number" name="dif_<?=$k?>" value="<?=$elemento_configuracion_mas->$dif?>">
+				        </div>
+						<div class="col s6">
+				            <label><?=_('Éxito')?></label>
+				            <textarea class="materialize-textarea" name="exito_<?=$k?>"><?=$elemento_configuracion_mas->$exito?></textarea>
+				        </div>
+						<div class="col s6">
+				            <label><?=_('Fallo')?></label>
+				            <textarea class="materialize-textarea" name="fallo_<?=$k?>"><?=$elemento_configuracion_mas->$fallo?></textarea>
+				        </div>
+				        <div class="clearfix"></div>
+					</li>
+				</ul>
+			</div>
+		<?php endforeach; ?>
+	</div>
+    <input type="hidden" name="escenarios_id" value="<?=$escenario->id?>">
+    <input type="hidden" name="elementos_id" value="<?=$elemento->id?>">
+    <input type="hidden" name="id" value="<?=$elemento_configuracion->id?>">
+</form>
+
+<?php
+Css::add('editor');

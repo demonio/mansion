@@ -1,0 +1,15 @@
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `socket`;
+
+CREATE TABLE `socket` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(111) DEFAULT NULL,
+  `contenido` varchar(1111) DEFAULT NULL,
+  `contenedor` varchar(111) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+SET FOREIGN_KEY_CHECKS = 1;

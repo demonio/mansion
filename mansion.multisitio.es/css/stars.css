@@ -1,0 +1,22 @@
+
+/* HACKS */
+[type="radio"]+label:before,
+[type="radio"]+label:after { display:none; }
+
+[type="radio"]:not(:checked)+label,
+[type="radio"]:checked+label { padding:0 5px 0 0; }
+
+/* CONTAINER */
+.stars { width:145px; }
+
+/* STAR */
+.stars label { cursor:pointer; float:right; }
+
+/* CLICK */
+.stars input:checked ~ label,
+
+/* HOVER */
+.stars:not(:checked) label:hover,
+
+/* PREVIOUS */
+.stars:not(:checked) label:hover ~ label { color:#f44336;  }

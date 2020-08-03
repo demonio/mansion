@@ -1,0 +1,16 @@
+<?php
+$controller_name = View::getVar('controller_name');
+?>
+
+<footer class="white-text">
+    <h6>
+        <?=$_SERVER['REMOTE_ADDR']?> <br>
+        <?=_::n(microtime(1)-$_SERVER['REQUEST_TIME_FLOAT'], 3 ) . ' s'?> —
+        <?=_::n(memory_get_usage()/1048576, 2) . ' MB'?>
+    </h6>
+
+    <?php /*<audio controls>
+		<source src="/audio/evilcharm.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>*/ ?>
+</footer>

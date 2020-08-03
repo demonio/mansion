@@ -1,0 +1,26 @@
+
+<script>
+if(typeof(EventSource) !== "undefined") 
+{
+    source = new EventSource('<?=$socket_url?>');
+    source.onmessage = function(e) 
+    {
+        var data = e.data;
+        //console.log(data);
+        var a = JSON.parse(data);
+        //console.log(a);
+
+        for (var i=0; i<a.length; i++)
+        {
+            $(a[i].to).load(a[i].from);
+            console.log(a[i].from);
+            console.log(a[i].to);
+        }
+    };
+
+    source.onclose = function()
+    {
+        //$('.common').load('/pj/pizarra/desconectar');
+    };
+} 
+</script>

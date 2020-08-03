@@ -1,0 +1,105 @@
+
+/* CURSOR Y CAMBIO DE CONTRASTE */
+a:hover,
+a *:hover,
+.btn:hover,
+.btn-large:hover,
+.dropdown-content li:hover,
+.select-wrapper input.select-dropdown:hover
+	{ filter:contrast(125%); }
+
+.btn,
+.btn-floating { box-shadow:none; }
+.btn:hover,
+.btn-floating:hover
+{
+	box-shadow:
+		0 2px 2px 0 rgba(0,0,0,0.14),
+		0 1px 5px 0 rgba(0,0,0,0.12),
+		0 3px 1px -2px rgba(0,0,0,0.2);
+	-webkit-filter:contrast(150%);
+}
+.btn { padding:0 10px; }
+
+.collapsible { box-shadow:none; }
+
+.collection { border:0; margin:0; overflow:visible; }
+.collection .collection-item { padding:10px; }
+
+.dropdown-content li>a, .dropdown-content li>span { color:#e53935; }
+
+.file-field .file-path-wrapper { padding-left:0; }
+
+.fixed-action-btn { left:23px; }
+
+/* AQUI SOLO LOS ESTILOS DE MATERIALIZECSS MODIFICADOS O FALTANTES */
+hr
+{
+	border:0;
+	height:1px;
+	overflow:hidden;
+	background:#e0e0e0;
+}
+
+/* min-height:100% NO FUNCIONA CON LA PROPIEDAD overflow:auto */
+/* GENERA BARRA DE SCROLL
+html, body, main { height:100%; }*/
+
+i.left { margin-right:0; }
+
+input:not([type]), 
+input[type=text]:not(.browser-default), 
+input[type=password]:not(.browser-default), 
+input[type=email]:not(.browser-default), 
+input[type=url]:not(.browser-default), 
+input[type=time]:not(.browser-default), 
+input[type=date]:not(.browser-default), 
+input[type=datetime]:not(.browser-default), 
+input[type=datetime-local]:not(.browser-default), 
+input[type=tel]:not(.browser-default), 
+input[type=number]:not(.browser-default), 
+input[type=search]:not(.browser-default),
+textarea.materialize-textarea
+{
+	height:2rem;
+	margin-bottom:10px;
+	min-height:2rem;
+}
+textarea.materialize-textarea { margin-bottom:0 !important; }
+
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly])
+{
+	border-bottom: 1px solid #e53935;
+	box-shadow: 0 1px 0 0 #e53935;
+}
+
+/* EN LINEA CON UN ENCABEADO ESTO NO MOLA
+input[type="checkbox"] + label { min-height:45px; margin-top:10px; }*/
+
+label { display:block; }
+
+menu { padding-left:0; }
+
+.modal label { color:#9e9e9e; }
+
+nav { background:transparent; }
+nav a { color:inherit; }
+nav .input-field label.active i { color:#01a1cb; }
+
+p { margin-top:0; }
+
+.row { margin-bottom:0; }
+
+.select-wrapper input.select-dropdown { height:2rem; margin-bottom:10px; }
+
+#sidenav-overlay { display:none; }
+
+.tabs .indicator { background:transparent; }
+.tabs .tab a { color:#9e9e9e; }
+.tabs .tab a:hover,
+.tabs .tab a.active { color:#e53935; }
+
+textarea.materialize-textarea { padding:0; }
+
+[type="checkbox"]+label { font-size:0.8rem; }
+[type="checkbox"]:checked+label:before { border-bottom:2px solid #5a5a5a; border-right:2px solid #5a5a5a; }

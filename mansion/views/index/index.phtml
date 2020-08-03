@@ -1,0 +1,36 @@
+
+<main>
+	<menu>
+		<div class="col s12"><span class="pa5 ra2 red draken-1 white-text">vBeta</span></div>
+		<div class="col s12 mt15">
+	    	<a class="btn transparent bw1" href="/registrados/escenarios">EDITOR DE ESCENARIOS</a>
+	    </div>
+	    <?php if ( ! empty($escenario->id) ) : ?>
+			<div class="col s12 mt15">
+		    	<a class="btn transparent bw1" href="/elegir/escenario/<?=$escenario->id?>">JUGAR ESCENARIO</a>
+		    </div>
+		<?php endif; ?>
+		<div class="col s10 offset-s1 m6 offset-m3 l3 mt15">
+			<div class="col s12 ph0">
+	    		<a class="btn transparent bw1" data-toggle=".faqs" href="#faqs">FAQs</a>
+	    	</div>
+	    	<div class="col s12 faqs black white-text o9" style="display:none">
+	    		<i class="material-icons">subdirectory_arrow_right</i>¿Cómo puedo hablar con el autor de este editor?<br>
+	    		<small>Desde el chat del botón rojo situado abajo a la derecha o entrando en el grupo de Discord habilitado para todo tipo de sugerencias.</small>
+	    	</div>
+	    	<div class="col s12 faqs black white-text o9" style="display:none">
+	    		<i class="material-icons">subdirectory_arrow_right</i>¿Cómo puedo apoyar tu trabajo al margen de esto, incondicionalmente?<br>
+	    		<small>Desde 1€ al mes puedes ser uno de mis patrones donde podrás influir en todos mis desarrollos; PDFs de reglas y aplicaciones para ROL y juegos de tablero:
+	    		<a href="https://www.patreon.com/mrdemonio">https://www.patreon.com/mrdemonio</a></small>
+	    	</div>
+	    	<div class="col s12 faqs black white-text o9" style="display:none">
+	    		<i class="material-icons">subdirectory_arrow_right</i>¿Cómo veo los cambios realizados en el editor?<br>
+	    		<small>Es necesario finalizar partida, botón que se encuentra en el menu del libro.</small>
+	    	</div>
+	    </div>
+	</menu>
+</main>
+
+<?php
+View::partial('footer');
+Css::add('portada');

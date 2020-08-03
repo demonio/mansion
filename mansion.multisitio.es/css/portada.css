@@ -1,0 +1,27 @@
+
+/*body { background:#000; }*/
+
+menu { position:relative; z-index:1; }
+
+/*.bg img
+{ 
+    position:fixed; top:0; left:0; z-index:0;
+    width:100%;
+}*/
+
+@media (max-width: 600px)
+{
+	body { background:url('/img/mansion.mobile.jpg') #000 top no-repeat; background-size:100%; }
+    menu {margin-top:60%;  text-align:center; }
+}
+
+@media (min-width: 601px) and (max-width: 992px)
+{
+	body { background:url('/img/mansion.tablet.jpg') #000 top no-repeat; }
+    menu { margin-top:310px; text-align:center; }
+}
+
+@media (min-width: 993px)
+{
+	body { background:url('/img/mansion.computer.jpg') #000 top no-repeat; }
+}

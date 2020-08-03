@@ -1,0 +1,58 @@
+<?php
+if ( empty($_GET['pagina']) ) $_GET['pagina'] = 1;
+
+$desde = ( ($_GET['pagina']-1) * 25 ) + 1;
+$hasta = $desde+24;
+$filas_totales = $numero_filas;
+if ($hasta > $filas_totales) $hasta = $filas_totales;
+?>
+<p class="col s12"><label><?="Filas desde la $desde hasta la $hasta de $filas_totales"?></label></p>
+<ul class="col s12 pagination">
+    <?php 
+    $skip_previous = ($_GET['pagina'] < 2) ? 'disabled' : '';
+    $chevron_left = ($_GET['pagina'] < 2) ? 'disabled' : '';
+    $_GET['accion'] = 'buscar';
+    $get = $_GET;
+    $get['pagina'] = 1;
+    $q = http_build_query($get);
+    $q = urldecode($q);
+    ?>
+    <li class="<?=$skip_previous?> mb5 waves-effect"><a class="js-remote" data-to="contenido > div" href="?<?=$q?>"><i class="material-icons">skip_previous</i></a></li>
+    <?php
+    $get['pagina'] = ($_GET['pagina'] > 1) ? $_GET['pagina']-1 : 1;
+    $q = http_build_query($get);
+    $q = urldecode($q);
+    ?>
+    <li class="<?=$chevron_left?> mb5 waves-effect"><a class="js-remote" data-to="contenido > div" href="?<?=$q?>"><i class="material-icons">chevron_left</i></a></li>
+    <?php 
+    $paginas = ceil( $filas_totales / 25 );
+    $paginas_previas = $_GET['pagina']-4;
+    $paginas_desde = ($paginas_previas < 1 ) ? 1 : $paginas_previas;
+    $paginas_siguientes = $_GET['pagina']+4;
+    $paginas_hasta = ($paginas_siguientes > $paginas ) ? $paginas : $paginas_siguientes;
+    for ($pagina=$paginas_desde; $pagina<=$paginas_hasta; ++$pagina)
+    {
+        $active = ($pagina == $_GET['pagina']) ? 'active' : '';
+        $get['pagina'] = $pagina;
+        $q = http_build_query($get);
+        $q = urldecode($q)
+        ?>
+        <li class="<?=$active?> mb5 waves-effect">
+            <a class="js-remote" data-to="contenido > div" href="?<?=$q?>"><?=$pagina?></a>
+        </li>
+        <?php 
+    }
+    $chevron_right = ( $_GET['pagina'] >= $paginas ) ? 'disabled' : '';
+    $skip_next = ( $_GET['pagina'] >= $paginas ) ? 'disabled' : '';
+    $get['pagina'] = ($_GET['pagina']<$paginas) ? $_GET['pagina']+1 : $paginas;
+    $q = http_build_query($get);
+    $q = urldecode($q)
+    ?>            
+    <li class="<?=$chevron_right?> mb5 waves-effect"><a class="js-remote" data-to="contenido > div" href="?<?=$q?>"><i class="material-icons">chevron_right</i></a></li>
+    <?php
+    $get['pagina'] = $paginas;
+    $q = http_build_query($get);
+    $q = urldecode($q)
+    ?>
+    <li class="<?=$skip_next?> mb5 waves-effect"><a class="js-remote" data-to="contenido > div" href="?<?=$q?>"><i class="material-icons">skip_next</i></a></li>
+</ul>

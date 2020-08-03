@@ -1,0 +1,19 @@
+
+<ul class="center-align collection grey-text text-lighten-2"> 
+	<li class="black collection-item">
+		<?=nl2br($ultimo_mito->texto)?>
+
+		<?php if ( ! empty($ultimo_mito->voz) ) : ?>
+			<div class="center-align mt15">
+				<audio controls>
+					<source src="/audio/escenarios/<?="$escenarios_id/$ultimo_mito->voz"?>" type="audio/mpeg">
+					Your browser does not support the audio element.
+				</audio>
+			</div>
+		<?php endif; ?>
+	</li>
+	<li class="black box-link collection-item">
+		FIN
+		<a href="/registrados/jugar/salir/<?=$escenarios_id?>" onclick="storage('clear')"></a>
+	</li>  
+</ul>

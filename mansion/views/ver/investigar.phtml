@@ -1,0 +1,31 @@
+
+<ul class="collection"> 
+	<li class="collection-item">
+        <p>
+        	<?=$elemento_configuracion->texto_investigar?>
+        </p>  
+        <?php if ($elemento_configuracion->voz_investigar) : ?>
+			<audio controls>
+				<source src="/audio/escenarios/<?="$escenario->id/$elemento->id/$elemento_configuracion->voz_investigar"?>" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+		<?php endif; ?>
+    </li>  
+	<li class="collection-item">
+        <button
+            class="btn blue darken-1 right"
+            data-close=".modal.open"
+            onclick="walking('<?=$elemento_configuracion->descubre?>')"
+        ><?=_('Cerrar')?></button>
+        
+        <?php if ($elemento_configuracion->atr_investigar) : ?>
+            <label class="col s4 mt10 right-align">Éxitos:</label>
+            <input type="number" class="col s1" id="pruebas_<?=$elemento_configuracion->id?>" style="text-align:center">
+            <a
+                class="btn orange darken-1 right mr15"
+                onclick="if ( test('pruebas_<?=$elemento_configuracion->id?>', $('#pruebas_<?=$elemento_configuracion->id?>').val(), <?=$elemento_configuracion->dif_investigar?>) ) $('.modal.info').load('/ver/prueba/exito/<?="$escenario->id/$elemento_configuracion->id"?>/<?=str_replace(' ', '', $elemento_configuracion->descubre) . '/' .str_replace(' ', '', $elemento_configuracion->oculta)?>'); else  $('.modal.info').load('/ver/prueba/fallo/<?="$escenario->id/$elemento_configuracion->id"?>/0,<?=str_replace(' ', '', $elemento_configuracion->descubre) . '/0,' .str_replace(' ', '', $elemento_configuracion->oculta)?>');"
+            ><?=_('Comprobar ' . $elemento_configuracion->atr_investigar)?></a>
+        <?php endif; ?>
+        <div class="clearfix"></div>
+    </li>  
+</ul>

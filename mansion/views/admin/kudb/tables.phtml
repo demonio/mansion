@@ -1,0 +1,29 @@
+<?php
+$database = View::getVar('database');
+$tables = View::getVar('tables');
+?>
+<aside>
+    <ul class="collection mv0">
+
+        <li class="collection-item">
+            <h3>
+                Tablas en "<?=$database?>"
+                <a href="/admin/kudb/table">
+                    <i class="small material-icons">add</i>
+                </a>
+            </h3>
+        </li>
+        <li class="collection-item">
+            <?php View::partial('filter', false, ['filter'=>'.filtered']); ?>
+        </li>
+        <?php if ( ! empty($tables) ) : 
+            foreach ($tables as $t) :
+                $active = ($t === $_SERVER['REQUEST_URI']) ? 'active ' : ''; ?>
+                <li class="<?=$active?>box-link collection-item filtered">
+                    <?=$t?>
+                    <a href="/admin/kudb/rows/<?=$t?>/1"></a>
+                </li>
+            <?php endforeach;
+        endif; ?>
+    </ul>
+</aside>

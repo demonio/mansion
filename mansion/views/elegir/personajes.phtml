@@ -1,0 +1,77 @@
+
+<h1 class="s12 m12 l12">Selección de investigadores</h1>
+
+<aside class="close personajes left white">
+	<ul class="collection">
+  		<li class="collection-item">
+			<h3>Personajes</h1>
+  		</li>
+        <li class="collection-item">
+            <?php View::partial('filter', false, ['filter'=>'.filtered']); ?>
+        </li>
+  		<?php foreach ($personajes as $o) :
+  			$selected = in_array($o->id, $personajes_seleccionados); ?>
+        	<li class="<?=($selected)?'active ':''?>box-link collection-item filtered">
+        		<b><?=$o->nombre?></b><br>
+        		<small></small>
+        		<a href="/elegir/personajes/<?=$escenario->id?>/<?=$pagina?>/<?=$o->id?>"></a>
+			</li>
+  		<?php endforeach; ?>
+  	</ul>
+</aside>
+<a class="btn-floating btn-large black list" data-focus="aside.personajes input" data-toggle="aside.personajes, #sidenav-overlay" style="position:fixed; left:-10px; top:-10px;">
+	<i class="material-icons">menu</i>
+</a>
+
+<main>
+	<div class="arrow col s2 m1 l2 right-content valign-wrapper">
+		<?php if ($pagina > 1) : ?>
+			<a href="/elegir/personajes/<?=$escenario->id?>/<?=$pagina-1?>">
+				<img class="responsive-img" src="/img/escenarios/arrow_left.png">
+			</a>
+		<?php endif; ?>
+	</div>
+
+	<div class="col s8 m10 l8 pjs row">
+		<?php foreach ($personajes_por_pagina as $o) :
+			$selected = in_array($o->id, $personajes_seleccionados); ?>
+			<div class="box-frame box-link center-align col s12 m6 l3 ph0<?=($selected)?' selected':''?>">
+				<img src="/img/escenarios/pj_frame.png">
+				<img onerror="this.src='/img/broken_mirror.png'" src="/img/personajes/<?="oval_investigator_$o->foto"?>">
+				<span><?=$o->nombre?></span>
+				<a href="/elegir/personajes/<?=$escenario->id?>/<?=$pagina?>/<?=$o->id?>"></a>
+			</div>
+		<?php endforeach; ?>
+	</div>
+
+	<div class="arrow col s2 m1 l2 left-content valign-wrapper">
+		<?php if ( $pagina < ceil(count($personajes)/8) ) : ?>
+			<a href="/elegir/personajes/<?=$escenario->id?>/<?=$pagina+1?>">
+				<img class="responsive-img" src="/img/escenarios/arrow_right.png">
+			</a>
+		<?php endif; ?>
+	</div>
+	<div class="clearfix"></div>
+</main>
+
+<div class="footer"></div>
+
+<footer class="center-align">
+	<div class="col s4 m3 l4 oval_left ph0">
+		<a href="/elegir/escenario/<?=$escenario->id?>" class="lime-text text-darken-4">Volver a<br>selección de<br>escenario</a>
+	</div>
+	<div class="col s4 m6 l4 ph0 pj_names row">
+		<?php foreach ($personajes_seleccionados as $id) : ?>
+			<div class="col s12 m6 l4 ph0">
+				<a href="/elegir/personajes/<?=$escenario->id?>/<?=$pagina?>/<?=$id?>"><?=$personajes[$id]->nombre?></a><br>
+				<img class="responsive-img s0" src="/img/escenarios/horizontal_separation.png">	
+			</div>
+		<?php endforeach; ?>
+	</div>
+	<div class="col s4 m3 l4 oval_right ph0">
+		<a class="lime-text text-darken-4" href="/obtener/objetos/<?=$escenario->id?>">Recibir<br>objetos<br>iniciales</a>
+	</div>
+</footer>
+
+<?php
+Css::add('seleccion_investigadores');

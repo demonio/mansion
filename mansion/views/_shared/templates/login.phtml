@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html id="important" lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<title>Mansion</title>
+		<link href="/css/materialize.min.css" rel="stylesheet">
+		<link href="/css/material-icons.css" rel="stylesheet">
+		<link href="/css/hacks.css" rel="stylesheet">
+		<link href="/css/helpers.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+		<?=Css::inc()?>
+	</head>
+	<body class="row">
+		<div class="col s10 offset-s1 m8 offset-m2 l6 offset-l3 mt20">
+			<?php View::partial('login');?>
+		</div>
+
+        <?php View::partial('footer'); ?>
+
+		<div id="ajax-container"></div>
+        <div id="sidenav-overlay"></div>
+
+		<script src="/javascript/jquery/jquery-3.1.1.min.js"></script>
+		<script src="/javascript/materialize.min.js"></script>
+		<script src="/javascript/function.js"></script>
+		<script src="/javascript/script.js"></script>
+		<script>
+			function triggers()
+			{
+
+			}	
+
+			$(function()
+			{
+				triggers();
+			});
+		</script>
+		
+        <?php View::partial('toast'); ?>
+	</body>
+</html>

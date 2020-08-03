@@ -1,0 +1,82 @@
+
+<form action class="col s12" method="post">
+    <ul class="collection">
+        <li class="collection-item pb0 ph0" style="overflow:auto">
+            <table class="striped white">
+                <thead>
+                    <tr>
+                        <?php foreach ($cols_of_cols as $k=>$v) : ?>
+                            <th><?=$v?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cols as $r) : ?>  
+                        <tr>
+                            <?php foreach ($cols_of_cols as $k=>$v) : ?> 
+                                <td>
+                                    <div class="height-limited">
+                                        <?=str_replace('<', '&lt;', $r->$k)?>
+                                        <?php if ($k == 'Field') : ?>
+                                            <a href="/admin/kudb/table/<?="$table/{$r->$k}"?>">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>                
+                <tfoot>
+                    <tr>
+                        <?php foreach ($cols_of_cols as $k=>$v) :
+                            $vv = ($col) ? $cols[$col]->$k : ''; ?> 
+                            <td>
+                                <label><?=$v?></label>
+                                <input type="text" class="mb0" name="<?=$k?>" value="<?=$vv?>">
+                                <?php if ($k == 'Field') : ?>
+                                    <input type="hidden" name="col_old" value="<?=$vv?>">
+                                <?php endif; ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label>Posición</label>
+                            <select name="pos">
+                                <option value="AFTER">Después de</option>
+                                <option value="BEFORE">Antes de</option>
+                            </select>
+                        </td>
+                        <td colspan="2">
+                            <label>Campo</label>
+                            <select name="pos_field">
+                                <?php $cols_reverse = array_reverse($cols);
+                                foreach ($cols_reverse as $c) : ?>
+                                    <option value="<?=$c->Field?>"><?=$c->Field?></option>
+                                <?php  endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </li>
+        <li class="collection-item ph0 pt0">
+            <div class="col s12 m3 l3 mt10">
+                <button type="submit" class="all-width btn green darken-1" name="action" value="create_col">Crear campo</button>
+            </div>
+            <?php if ( ! empty($table) ) : ?>
+                <div class="col s12 m3 l3 mt10">
+                    <button type="submit" class="all-width btn orange darken-1" name="action" value="update_col">Actualizar campo</button>
+                </div>
+                <div class="col s12 m3 l3 delete_col mt10">
+                    <button type="button" class="all-width btn red darken-1" data-toggle=".delete_col button">Eliminar campo</button>
+                    <button type="submit" class="all-width btn red darken-1" name="action" style="display:none" value="delete_col"><?=_('¿Seguro?')?></button>
+                </div>
+            <?php endif; ?>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+    <input type="hidden" name="table" value="<?=$table?>">
+</form>

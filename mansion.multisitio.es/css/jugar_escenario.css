@@ -1,0 +1,55 @@
+
+body { background:#000; }
+
+aside.creatures { width:255px !important; }
+aside.creatures li > div { padding:0 10px; }
+.creature .collapsible-header { line-height:30px; min-height:30px; }
+.creature .collapsible-body { position:relative; height:398px; }
+.creature .pnj { position:absolute; left:37px; top:29px; }
+.creature .bg { position:absolute; left:0; top:0; }
+
+.creature .pv { position:absolute; left:36px; top:29px;
+	color:white; font:24px serif; text-align:center; text-shadow:2px 2px 4px #000; width:25px; }
+
+.creature .name { position:absolute; left:0; top:190px;
+	font:18px 'OldNewspaperTypes'; text-align:center; width:100%; }
+.creature .dmg { position:absolute; left:0; top:230px;
+	color:white; font:24px serif; text-align:center; width:100%; }
+.creature .less { position:absolute; left:56px; top:223px;
+	height:40px; width:40px; }
+.creature .more { position:absolute; left:158px; top:223px;
+	height:40px; width:40px; }
+.creature .attack { position:absolute; left:0; top:295px;
+	color:white; font:18px 'OldNewspaperTypes'; letter-spacing:1px; text-align:center; width:100%; }
+.creature .escape { position:absolute; left:0; top:348px;
+	color:white; font:18px 'OldNewspaperTypes'; letter-spacing:1px; text-align:center; width:100%; }
+
+.eop-box
+{
+	background:url('/img/eop_box.png');
+	height:100px; width:87px;
+	position:fixed; bottom:0; right:50px; z-index:2;
+}
+.eop-box .phase { position:fixed; bottom:29px; right:68px; z-index:3; }
+
+.grid
+{ 
+	height:18000px; width:18000px;
+	margin:45px;
+	position:relative;
+}
+
+.modal { max-width:450px; }
+.modal ul { border:1px solid white !important; border-bottom:0 !important; margin:0; }
+.modal ul li { border:0 !important; border-bottom:1px solid white !important; }
+
+.options
+{
+	background:url('/img/options.png');
+	height:109px; width:200px;
+	position:fixed; bottom:0; left:10px; z-index:2;
+}
+.options img { position:fixed; z-index:3; }
+.options .mix { bottom:29px; left:26px; }
+.options .creatures { bottom:29px; left:84px; }
+.options .bag { bottom:29px; left:144px; }

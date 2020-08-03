@@ -1,0 +1,18 @@
+
+<ul class="center-align collection grey-text text-lighten-2"> 
+	<li class="black collection-item">
+		<?=$pnj->accion_evitar;?> (<?=$pnj->atr_evitar;?>; <?=$pnj->dif_evitar;?>)
+	</li>
+	<li class="black collection-item">
+		<a data-hide=".escape.ko" data-show=".escape.ok">Si superas la tirada...</a>
+		<p class="escape ok" style="display:none"><?=$pnj->exito_evitar;?></p>
+	</li> 
+	<li class="black collection-item">
+		<a data-hide=".escape.ok" data-show=".escape.ko">Si fallas la tirada...</a>
+		<p class="escape ko" style="display:none"><?=$pnj->fallo_evitar;?></p>
+	</li> 
+	<li class="black box-link collection-item">
+		Continuar
+		<a data-close=".modal.escape" href="#"></a>
+	</li>  
+</ul>

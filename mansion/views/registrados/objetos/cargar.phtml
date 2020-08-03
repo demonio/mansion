@@ -1,0 +1,21 @@
+
+<?php if ( ! $objetos ) : ?>
+	<li class="object">
+		<div class="collapsible-header black white-text">
+			NADA EN LA MOCHILA
+		</div>
+	</li>
+<?php endif; ?>
+
+<?php foreach ($objetos as $o) : ?>
+	<li class="object n<?=$o->id?>">
+		<div class="collapsible-header black white-text">
+			<?=$o->nombre?>
+		</div>
+		<div class="center-align collapsible-body grey darken-4 pa0">
+			<img class="objeto mt15" src="/img/objetos/180x180/<?=$o->imagen?>.png" width="105">
+			<?php /*<img class="bg" src="/img/objetos/bg.png">*/ ?>
+			<a class="btn object black bw1 mv15" data-ajax=".modal.object" data-open=".modal.object" href="/registrados/objetos/usar/<?=$o->id?>">Usar</a>
+		</div>
+	</li>
+<?php endforeach; ?>

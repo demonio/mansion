@@ -1,0 +1,80 @@
+
+<aside class="close creatures objects left ma10 transparent">
+	<ul class="collapsible" data-collapsible="accordion">
+		<?php include APP_PATH . 'views/registrados/pnjs/cargar.phtml'; ?>
+    </ul>
+</aside>
+<div class="attacks close escape object modal">
+</div>
+
+<?php if ($paso > 1) : ?>
+	<div class="h100 valign-wrapper">
+		<div class="center-container col s10 m8 l6 white-text">
+		    <ul class="black tabs">
+		    	<li class="tab"><a href="#movimiento">Moviminento</a></li>
+		    	<li class="tab"><a href="#ataque">Ataque</a></li>
+		    	<li class="tab"><a href="#cordura">Cordura</a></li>
+		    </ul>
+			<?php $i=1; foreach ($pnjs as $pnj) :
+				++$i; if ($paso<>$i ) continue; ?>
+				<h1><?=$pnj->nombre?></h1>
+				<hr>
+				<div id="movimiento">
+					<h3>Movimiento:</h3>
+					<p><?=$pnj->movimiento?></p>
+				</div>
+				<div id="ataque">
+					<h3>Ataque si procede:</h3>
+					<p><?=$pnj->accion_defender?></p> 
+					<p>Si no superas una prueba de <?=$pnj->atr_defender?> con <?=$pnj->dif_defender?> éxitos o más, sufriras:</p> 
+					<p><?=$pnj->fallo_defender?></p> 
+					<p>De lo contrario:</p>
+					<p><?=$pnj->exito_defender?></p>
+				</div>
+				<div id="cordura">
+					<h3>Tiradas de cordura si procede:</h3>  
+					<p><?=$pnj->accion_cordura?></p> 
+					<p>Deben superar una pruba de <?=$pnj->atr_cordura?> con <?=$pnj->dif_cordura?> éxitos o más o sufriran:</p> 
+					<p><?=$pnj->fallo_cordura?></p> 
+					<p>Si tiene éxito:</p>
+					<p><?=$pnj->exito_cordura?></p>
+					<?php if ($paso > count($pnjs)) : ?>
+						<a class="black white-text btn bw1" href="/registrados/jugar/escenario/<?=$escenario->id?>">Continuar</a>
+					<?php else : ?>
+						<a class="black white-text btn bw1" href="/registrados/jugar/mitos/<?=$escenario->id?>/<?=++$i?>">Continuar</a>
+					<?php endif; ?>
+				</div>
+			<?php break; endforeach; ?>
+			<hr>
+		</div>
+	</div>
+<?php else : ?>
+	<div class="h100 valign-wrapper">
+		<div class="center-container col s10 m8 l6 white-text">
+			<h1>Fase de mitos</h1>
+			<hr>
+			<h2>Turno <?=$turno?></h2>
+			<p><?=nl2br($mito->texto)?></p> 
+		    <?php if ($mito->voz) : ?>
+				<audio controls>
+					<source src="/audio/escenarios/<?="$escenario->id/$mito->voz"?>" type="audio/mpeg">
+					Your browser does not support the audio element.
+				</audio>
+			<?php endif; ?>
+			<hr>
+			<a class="black white-text btn bw1" href="/registrados/jugar/mitos/<?=$escenario->id?>/2">Continuar</a>
+		</div>
+	</div>
+<?php endif; ?>
+
+<div class="options">
+	<a data-ajax="aside.creatures > ul" data-hide="a.criaturas" data-toggle="aside.creatures, #sidenav-overlay" href="/registrados/pnjs/crear/<?=$escenario->id?>"><img class="creatures" src="/img/option_creatures.png"></a>
+</div>
+
+<?php /*<div class="eop-box">
+	<a href="/registrados/jugar/escenario/<?=$escenario->id?>"><img class="phase" src="/img/option_phase.png"></a>
+</div>*/ ?>
+
+<?php
+Css::add('jugar_escenario');
+Css::add('mitos');

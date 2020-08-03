@@ -1,0 +1,109 @@
+
+body { background:#000; }
+
+/* CABECERA */
+h1
+{ 
+	background:url('/img/escenarios/investigator_select_title.png') center no-repeat;
+	font-family:'OldNewspaperTypes';
+	height:110px; width:100%;
+	padding:30px 0;
+	text-align:center;
+}
+
+/* FLECHAS */
+main, .arrow { height:415px; }
+
+main div.col
+{
+	margin-top:25px;
+	text-align:center;
+}
+
+main img
+{
+	width:120px;
+}
+
+main span
+{
+	background:url('/img/objetos/title_frame.png') center no-repeat;
+	color:#e0e0e0;
+	display:block;
+	font:13px 'OldNewspaperTypes';
+	height:68px;
+	padding-top:25px;
+	text-align:center;
+	width:100%;
+}
+
+.selected { opacity:0.5; }
+
+.box-frame img 
+{ 
+	height:200px; width:165px;
+}
+
+.box-frame span 
+{ 
+	display:block;
+	font:13px 'OldNewspaperTypes';
+	position:absolute; bottom:27px;
+	width:100%;
+}
+
+div.footer { clear:both; height:150px; }
+
+footer 
+{ 
+	background:url('/img/escenarios/party_tray.png') center no-repeat;
+	height:160px; 
+	position:fixed; bottom:0; 
+}
+footer .oval_left
+{
+	background:url('/img/escenarios/oval_left.png') right top no-repeat;
+	font:13px 'OldNewspaperTypes';
+	height:160px;
+	position:relative; 
+}
+footer .oval_left a { position:absolute; right:40px; top:40px; }
+
+footer div
+{ 
+	height:193px;
+	position:relative;
+	text-align:center;
+}
+
+footer div span
+{ 
+	color:#e0e0e0;
+	font:23px 'OldNewspaperTypes';
+}
+
+footer div span img { width:75px; }
+
+footer .oval_right
+{
+	background:url('/img/escenarios/oval_right.png') left top no-repeat;
+	font:13px 'OldNewspaperTypes';
+	height:160px;
+	position:relative; 
+}
+footer .oval_right a { position:absolute; left:50px; top:47px; }
+
+@media (max-width:600px)
+{
+	h1 { margin-top:15px; }
+	footer div span { font-size:15px; }
+	footer div span img { margin-top:30px; width:50px; }
+}
+
+@media (min-width:601px) and (max-width:992px)
+{
+}
+
+@media (min-width:993px)
+{
+}

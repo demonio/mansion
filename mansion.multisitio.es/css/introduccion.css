@@ -1,0 +1,28 @@
+
+body { background:#000; }
+
+main { padding-top:30px; }
+
+.mirror div > img
+{
+	height:485px;
+	width:100%;
+}
+
+.intro
+{ 
+	color:#e0e0e0; 
+	font:18px 'MADGaramondPro'; letter-spacing:1px;
+}
+
+@media (max-width:600px)
+{
+}
+
+@media (min-width:601px) and (max-width:992px)
+{
+}
+
+@media (min-width:993px)
+{
+}

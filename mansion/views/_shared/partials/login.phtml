@@ -1,0 +1,87 @@
+
+<ul class="grey darken-4 tabs">
+    <li class="tab"><a href="#crear">Crear</a></li>
+    <li class="tab"><a class="active" href="#entrar">Entrar</a></li>
+    <li class="tab"><a href="#resetear">Resetear</a></li>
+    <li class="tab"><a href="#borrarse">Borrarse</a></li>
+</ul>
+<div id="crear">
+    <form method="post">
+        <ul class="collection mv0">
+            <li class="collection-item grey darken-4">
+                <div class="col s12 m5 l5">
+                    <label>eMail</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Clave</label>
+                    <input type="password" name="clave">
+                </div>
+                <div class="col s12 m3 l3 mv10">
+                    <button type="submit" class="all-width btn bw1 black darken-1" name="action" value="usuarios.crear">Crear</button>
+                </div>
+                <div class="col s12 mv10">
+                    <input type="checkbox" id="terminos" name="terminos">
+                    <label for="terminos">Los dos datos que se piden aquí permiten a la aplicación guardar el estado de una partida así como asociar la construcción de una mansión a un creador. Estos credenciales solo son usados para este efecto. En cualquier momento podrás eliminarlos manualmente o automáticamente si tu cuenta no tiene actividad por dos meses o más. En ese momento tus mansiones quedarán liberadas para que cualquiera pueda usarlas.</label>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="entrar">
+    <form method="post">
+        <ul class="collection mv0">
+            <li class="collection-item grey darken-4">
+                <div class="col s12 m5 l5">
+                    <label>eMail</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Clave</label>
+                    <input type="password" name="clave">
+                </div>
+                <div class="col s12 m3 l3 mv10">
+                    <button type="submit" class="all-width btn bw1 black darken-1" name="action" value="usuarios.entrar">Entrar</button>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="resetear">
+    <form method="post">
+        <ul class="collection mv0">
+            <li class="collection-item grey darken-4">
+                <div class="col s12 m5 l5">
+                    <label>eMail</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="col s12 m3 l3 mv10">
+                    <button type="submit" class="all-width btn bw1 black darken-1" name="action" value="usuarios.resetear">Resetear</button>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="borrarse">
+    <form method="post">
+        <ul class="collection mv0">
+            <li class="collection-item grey darken-4">
+                <div class="col s12 m5 l5">
+                    <label>eMail</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="col s12 m4 l4">
+                    <label>Clave</label>
+                    <input type="password" name="clave">
+                </div>
+                <div class="col s12 m3 l3 mv10">
+                    <button type="submit" class="all-width btn bw1 black darken-1" name="action" value="usuarios.borrarse">Borrarse</button>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+        </ul>
+    </form>
+</div>

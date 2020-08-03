@@ -1,0 +1,100 @@
+
+<aside class="close escenarios left white">
+	<ul class="collection">
+  		<li class="collection-item">
+			<h3>Escenarios</h1>
+  		</li>
+        <li class="collection-item">
+            <?php View::partial('filter', false, ['filter'=>'.filtered']); ?>
+        </li>
+  		<?php foreach ($escenarios as $o) : ?>
+        	<li class="box-link collection-item filtered">
+        		<b><?=$o->nombre?></b><br>
+        		<small>Dificultad: <?=$dificultad_semantica[$o->dificultad]?><br>
+        		Duración: <?=$o->duracion_desde?>' - <?=$o->duracion_hasta?>'</small>
+        		<a href="/elegir/escenario/<?=$o->id?>"></a>
+			</li>
+  		<?php endforeach; ?>
+  	</ul>
+</aside>
+<a class="btn-floating btn-large black list" data-focus="aside.escenarios input" data-toggle="aside.escenarios, #sidenav-overlay" style="position:fixed; left:-10px; top:-10px;">
+	<i class="material-icons">menu</i>
+</a>
+
+<header class="col s12">
+	<h1>Selección de escenario</h1>
+</header>
+
+<main class="col s12">
+	<div class="arrow col s2 m1 l2 right-content valign-wrapper">
+		<?php if ($previo->id) : ?>
+			<a href="/elegir/escenario/<?=$previo->id?>">
+				<img class="responsive-img" src="/img/escenarios/arrow_left.png">
+			</a>
+		<?php endif; ?>
+	</div>
+
+	<div class="center-align col s0 m5 l4 pl0 mirror">
+		<div class="box-frame valign-wrapper">
+			<img src="/img/escenarios/oval_scene_image.png">
+			<img onerror="this.src='/img/broken_mirror.png'" src="/img/escenarios/<?="$escenario->id/$escenario->imagen"?>">
+			<?php /*<a data-toggle="aside, #sidenav-overlay"><img src="/img/escenarios/all_content.png"></a>*/ ?>
+		</div>
+	</div>
+
+	<div class="col s8 m5 l4 ph0 foreword">
+		<img src="/img/escenarios/scroll_foreword.png">
+		<h2><?=$escenario->nombre?></h2>
+		<p><?=$escenario->prologo?></p>
+		<span><?=$escenarios_n[$escenario->id]?>/<?=$n_escenarios?></span>
+	</div>
+
+	<div class="arrow col s2 m1 l2 left-content valign-wrapper">
+		<?php if ($siguiente->id) : ?>
+			<a href="/elegir/escenario/<?=$siguiente->id?>">
+				<img class="responsive-img" src="/img/escenarios/arrow_right.png">
+			</a>
+		<?php endif; ?>
+	</div>
+	<div class="clearfix"></div>
+</main>
+
+<footer class="center-align">
+	<div class="col s4 m3 l4 oval_left ph0">
+		<a href="/" class="lime-text text-darken-4">Volver al<br>menu<br>principal</a>
+	</div>
+	<div class="col s4 m6 l4 notes ph0">
+		<p class="col s12 m6 l6 ph0">
+			<label>DIFICULTAD:</label>
+			<?=$dificultad_semantica[$escenario->dificultad]?>
+		</p>
+		<p class="col s12 m6 l6 ph0">
+			<label>DURACIÓN:</label>
+			<?=$escenario->duracion_desde?>' - <?=$escenario->duracion_hasta?>'
+		</p>
+		<p class="col s0 m12 l12 mt5 ph0">
+			<label class="inline">REQUIERE:</label>
+			<small>
+				<?php $n_ampliaciones = explode(' ', $escenario->ampliaciones);
+				$ampliaciones = [
+					'20'=>'Mansiones de la locura 2ª edición (tentáculo)',
+					'23'=>'Más allá del umbral (garra)',
+					'24'=>'Calles de Arkham (llavero)',
+					'01'=>'Mansiones de la locura 1ª edición (llave)',
+					'06'=>'Alquimia prohibida (poción)',
+					'09'=>'La llamada de lo salvaje (luna)',
+				];
+				foreach ($n_ampliaciones as $n) :
+					$a[] = $ampliaciones["$n"];
+				endforeach;
+				echo implode(', ', $a); ?>
+			</small>
+		</p>
+	</div>
+	<div class="col s4 m3 l4 oval_right ph0">
+		<a href="/elegir/personajes/<?=$escenario->id?>/1" class="lime-text text-darken-4">Selección de<br>investigadores</a>
+	</div>
+</footer>
+
+<?php
+Css::add('seleccion_escenario');

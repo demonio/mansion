@@ -1,0 +1,18 @@
+
+<ul class="center-align collection grey-text text-lighten-2"> 
+	<li class="black collection-item">
+		<?=$pnj->$ataque;?> (<?=$pnj->$atr;?>; <?=$pnj->$dif;?>)
+	</li>
+	<li class="black collection-item">
+		<a data-hide=".attack.ko" data-show=".attack.ok">Si superas la tirada...</a>
+		<p class="attack ok" style="display:none"><?=$pnj->$exito;?></p>
+	</li> 
+	<li class="black collection-item">
+		<a data-hide=".attack.ok" data-show=".attack.ko">Si fallas la tirada...</a>
+		<p class="attack ko" style="display:none"><?=$pnj->$fallo;?></p>
+	</li> 
+	<li class="black box-link collection-item">
+		Continuar
+		<a data-close=".modal.attacks" href="#"></a>
+	</li>  
+</ul>

@@ -1,0 +1,61 @@
+<?php
+foreach ($cols as $o)
+{
+    $col = $o->Field;
+    if ( ! empty($skip) and in_array($col, $skip) ) continue;
+    $col_type = $o->Type;
+    $color_text = ($o->Key) ? 'red-text' : 'black-text';
+    $label = empty($labels) ? $col : $labels[$col];
+    $value = empty($row) ? '' : $row->$col;
+
+    if ( strstr($col_type, 'tinyint(') )
+    {
+        ?>
+        <div class="col s12 m6 l3 switch">
+            <label for="<?=$col?>">
+                <span><?=$label?></span>
+                Off
+                <input<?php if ($value) echo ' checked'; ?> type="checkbox" id="<?=$col?>" name="<?=$col?>" value="<?=$value?>">
+                <span class="black lever"></span>
+                On
+            </label>
+        </div>
+        <?php
+    }
+    else if ( strstr($col, 'tags') )
+    {
+        ?>
+        <div class="col s12">
+            <label><?=$label?></label>
+            <input type="text" name="tags" value="<?=$value?>">
+        </div>
+        <?php
+    }
+    else if ( strstr($col_type, 'text') )
+    {
+        ?>
+        <div class="col s12">
+            <label><?=$label?></label>
+            <textarea class="flow-text kuwy materialize-textarea" name="<?=$col?>"><?=$value?></textarea>
+        </div>
+        <?php
+    }
+    else if ( strstr($col_type, 'date') )
+    {
+        ?>
+        <div class="col s12 m6 l3">
+            <label for="<?=$col?>"><?=$label?></label>
+            <input type="text" class="datepicker" id="<?=$col?>" name="<?=$col?>" value="<?=$value?>">
+        </div>
+        <?php
+    }
+    else
+    {
+        ?>
+        <div class="col s12 m6 l3">
+            <label for="<?=$col?>"><?=$label?></label>
+            <input type="text" id="<?=$col?>" name="<?=$col?>" value="<?=$value?>">
+        </div>
+        <?php
+    }
+}

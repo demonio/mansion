@@ -1,0 +1,57 @@
+
+<?php #if ($elemento_configuracion->texto) : ?>
+	<div class="modal info open">
+		<ul class="collection"> 
+	  		<li class="collection-item">
+		        <p>
+		        	<?=$elemento_configuracion->texto?>
+		        </p>  
+		        <?php if ($elemento_configuracion->voz) : ?>
+					<audio controls>
+						<source src="/audio/escenarios/<?="$escenario->id/$elemento->id/$elemento_configuracion->voz"?>" type="audio/mpeg">
+						Your browser does not support the audio element.
+					</audio>
+				<?php endif; ?>
+		    </li>  
+	  		<li class="collection-item">
+
+	        	<button
+	        		class="btn blue darken-1 right"
+	        		data-close=".modal.open"
+					<?php if ( ! empty($_POST['elements']) ) : ?>onclick="walking('<?=$_POST['elements']?>')"<?php endif; ?>
+	        	><?=_('Cerrar')?></button>
+
+				<?php if ( ! $elemento_configuracion->atr_investigar and $elemento_configuracion->descubre ) :
+					$a = explode( ',', str_replace(' ', '', $elemento_configuracion->descubre) );
+					$descubre = "[data-n='" . implode("'],[data-n='", $a) . "']";
+				else :
+		            $descubre = '';
+				endif;
+
+				if ( ! $elemento_configuracion->atr_investigar and $elemento_configuracion->oculta ) :
+					$b = explode( ',', str_replace(' ', '', $elemento_configuracion->oculta) );
+					$oculta = "[data-n='" . implode("'],[data-n='", $b) . "']";
+				else :
+		            $oculta = '';
+				endif;
+
+				if ($elemento_configuracion->texto_investigar) : ?>
+					<a
+						class="btn orange darken-1 right mr15"
+	        			data-hide="<?=$oculta?>"
+            			onclick="walking('<?=$elemento_configuracion->descubre?>')"
+					><i class="material-icons left">flash_on</i><?=_('Investigar')?></a>
+	        	<?php elseif ($elemento_configuracion->descubre or $elemento_configuracion->oculta) : ?>
+	        		<a 
+	        			class="btn green darken-1 right mr15" 
+	        			data-close=".modal.open"
+	        			data-hide="<?=$oculta?>"
+            			onclick="burning(<?=$elemento_configuracion->oculta?>); walking('<?=$elemento_configuracion->descubre?>')"
+	        		><?=_('Descubrir')?></a>
+	        	<?php endif; ?>
+
+	        	<div class="clearfix"></div>
+		    </li>  
+		</ul>
+	</div>
+<?php #endif; ?>

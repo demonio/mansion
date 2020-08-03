@@ -1,0 +1,14 @@
+
+@font-face
+{
+    font-family: 'Material Icons';
+    src: url(/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons
+{
+    font-family: 'Material Icons';
+    font-size: x-large;
+    font-style: normal;
+    text-transform: none;
+}
