@@ -9,7 +9,7 @@ Me gustaría que me ayudárais a terminarla, ya que está en un 90%.
 Y por qué no, hacerla multilenguaje.
 
 ## ¿Por qué no están las imágenes?
-No he pedido permiso para ello, pues tiene derechos de autor.  
+No he pedido permiso para ello, pues tienen derechos de autor.  
 Tampoco encontrarás los archivos de configuración:  
 /index.php  
 /databases.ini  
@@ -20,7 +20,7 @@ Tampoco encontrarás los archivos de configuración:
 https://mansion.multisito.es
 
 ## ¿Dónde puedo contactar contigo?
-https://discord.gg/TpA5n3
+https://discord.gg/TpA5n3  
 https://slack.kumbiaphp.com/
 
 Enjoy!
