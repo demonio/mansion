@@ -9,11 +9,11 @@ Me gustaría que me ayudárais a terminarla, ya que está en un 90%.
 Y por qué no, hacerla multilenguaje.
 
 ## ¿Por qué no están las imágenes?
-No he pedido permiso para ello, pues tiene derechos de autor.
-Tampoco encontrarás los archivos de configuración:
-/index.php
-/databases.ini
-/databases.php
+No he pedido permiso para ello, pues tiene derechos de autor. 
+Tampoco encontrarás los archivos de configuración: 
+/index.php 
+/databases.ini 
+/databases.php 
 (Deberás conocer el framework KumbiaPHP para completarlos)
 
 ## ¿Dónde puedo probarla?
